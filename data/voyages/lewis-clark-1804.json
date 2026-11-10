@@ -1,0 +1,471 @@
+{
+  "id": "lewis-clark-1804",
+  "title": "The Corps of Discovery",
+  "explorer": "Meriwether Lewis and William Clark",
+  "years": [1804, 1806],
+  "calendar": "gregorian",
+  "status": "draft",
+  "home": { "name": "Camp Dubois, near St. Louis", "lat": 38.82, "lon": -90.12 },
+  "summary": "Up the Missouri, over the Rockies and down the Columbia to the Pacific, looking for a water route across the continent. There was none, and they survived on the help of the nations whose lands they crossed.",
+  "sourceNote": "The captains and several of the men kept journals, published in full only in the twentieth century. Camp positions follow the National Park Service's reconstruction of the trail. Rivers between camps are drawn as straight lines, not as the river ran.",
+  "knownWorld": {
+    "type": "FeatureCollection",
+    "note": "Approximate, hand-drawn: the world as American and European maps showed it in 1804, including the lower Missouri as far as the Mandan villages, which fur traders had charted. The western interior of North America was blank.",
+    "features": [
+      {
+        "type": "Feature",
+        "properties": { "name": "The charted world" },
+        "geometry": { "type": "Polygon", "coordinates": [[[-180, -60], [180, -60], [180, 72], [-180, 72], [-180, -60]]] }
+      },
+      {
+        "type": "Feature",
+        "properties": { "name": "The western interior", "unknown": true },
+        "geometry": {
+          "type": "Polygon",
+          "coordinates": [[
+            [-96.2, 40], [-100, 37], [-106, 35], [-112, 34], [-118, 36], [-121.5, 40], [-122.6, 44], [-122.6, 47.5], [-122, 50], [-118, 54],
+            [-110, 56], [-101.5, 52], [-100.6, 49], [-102.0, 47.6], [-101.6, 46.8], [-101.1, 44.4], [-99.8, 43.0], [-98.2, 42.6], [-96.9, 42.3],
+            [-96.6, 41.3], [-96.2, 40]
+          ]]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": { "name": "Northern interior", "unknown": true },
+        "geometry": { "type": "Polygon", "coordinates": [[[-128, 58], [-98, 57], [-88, 62], [-95, 70], [-125, 70], [-128, 58]]] }
+      },
+      {
+        "type": "Feature",
+        "properties": { "name": "Central Africa", "unknown": true },
+        "geometry": { "type": "Polygon", "coordinates": [[[-5, 15], [10, 18], [25, 15], [32, 10], [30, -5], [28, -15], [20, -20], [12, -12], [10, 0], [5, 8], [-5, 12], [-5, 15]]] }
+      },
+      {
+        "type": "Feature",
+        "properties": { "name": "Inland Australia", "unknown": true },
+        "geometry": { "type": "Polygon", "coordinates": [[[118, -22], [128, -18], [138, -18], [145, -22], [147, -30], [140, -33], [130, -30], [120, -28], [118, -22]]] }
+      }
+    ]
+  },
+  "believedWorld": {
+    "type": "FeatureCollection",
+    "note": "Approximate, after the maps Jefferson and the captains studied: a single ridge of mountains, crossed by a short portage, with the Columbia rising just beyond it and running easily to the sea.",
+    "features": [
+      {
+        "type": "Feature",
+        "properties": { "name": "The Stony Mountains" },
+        "geometry": { "type": "LineString", "coordinates": [[-111.5, 49.5], [-111.8, 48], [-112.2, 46.5], [-112.6, 45], [-112.9, 43.5], [-113.2, 42]] }
+      },
+      {
+        "type": "Feature",
+        "properties": { "name": "River of the West" },
+        "geometry": { "type": "LineString", "coordinates": [[-113.2, 46.2], [-114.5, 46.0], [-116, 45.8], [-117.5, 45.9], [-119, 46.0], [-120.5, 45.9], [-122, 46.1], [-123.9, 46.2]] }
+      }
+    ]
+  },
+  "legs": [
+    {
+      "mode": "river",
+      "vessel": "keelboat and two pirogues",
+      "points": [
+        { "date": "1804-05-14", "lat": 38.82, "lon": -90.12, "confidence": "documented", "sourceId": "thwaites", "place": "Camp Dubois, mouth of the Missouri" },
+        { "date": "1804-05-21", "lat": 38.78, "lon": -90.48, "confidence": "documented", "sourceId": "thwaites", "place": "St. Charles" },
+        { "date": "1804-05-25", "lat": 38.6, "lon": -91.05, "confidence": "reconstructed", "sourceId": "nps", "place": "La Charette, the last settlement" },
+        { "date": "1804-06-04", "lat": 38.58, "lon": -92.17, "confidence": "reconstructed", "sourceId": "nps" },
+        { "date": "1804-06-09", "lat": 38.97, "lon": -92.74, "confidence": "interpolated" },
+        { "date": "1804-06-14", "lat": 39.3, "lon": -93.1, "confidence": "interpolated" },
+        { "date": "1804-06-20", "lat": 39.19, "lon": -93.88, "confidence": "interpolated" },
+        { "date": "1804-06-26", "lat": 39.11, "lon": -94.61, "confidence": "reconstructed", "sourceId": "nps", "place": "mouth of the Kansas River" },
+        { "date": "1804-07-01", "lat": 39.32, "lon": -94.91, "confidence": "interpolated" },
+        { "date": "1804-07-04", "lat": 39.6, "lon": -95.1, "confidence": "reconstructed", "sourceId": "nps", "place": "Independence Creek" },
+        { "date": "1804-07-08", "lat": 39.77, "lon": -94.87, "confidence": "interpolated" },
+        { "date": "1804-07-13", "lat": 40.05, "lon": -95.43, "confidence": "interpolated" },
+        { "date": "1804-07-18", "lat": 40.68, "lon": -95.85, "confidence": "interpolated" },
+        { "date": "1804-07-21", "lat": 41.05, "lon": -95.88, "confidence": "reconstructed", "sourceId": "nps", "place": "mouth of the Platte" },
+        { "date": "1804-07-30", "lat": 41.45, "lon": -96.01, "confidence": "reconstructed", "sourceId": "nps", "place": "Council Bluff" },
+        { "date": "1804-08-03", "lat": 41.45, "lon": -96.01, "confidence": "reconstructed", "sourceId": "nps" },
+        { "date": "1804-08-11", "lat": 42.0, "lon": -96.25, "confidence": "interpolated" },
+        { "date": "1804-08-20", "lat": 42.47, "lon": -96.38, "confidence": "reconstructed", "sourceId": "nps", "place": "Floyd's Bluff, Sioux City" },
+        { "date": "1804-08-25", "lat": 42.77, "lon": -96.93, "confidence": "interpolated" },
+        { "date": "1804-08-30", "lat": 42.86, "lon": -97.48, "confidence": "reconstructed", "sourceId": "nps", "place": "Calumet Bluff" },
+        { "date": "1804-09-04", "lat": 42.76, "lon": -98.05, "confidence": "interpolated", "place": "mouth of the Niobrara" },
+        { "date": "1804-09-10", "lat": 43.06, "lon": -98.55, "confidence": "interpolated" },
+        { "date": "1804-09-16", "lat": 43.81, "lon": -99.33, "confidence": "interpolated" },
+        { "date": "1804-09-21", "lat": 44.1, "lon": -99.65, "confidence": "interpolated", "place": "the Big Bend" },
+        { "date": "1804-09-25", "lat": 44.35, "lon": -100.37, "confidence": "reconstructed", "sourceId": "nps", "place": "mouth of the Bad River" },
+        { "date": "1804-10-08", "lat": 45.58, "lon": -100.45, "confidence": "reconstructed", "sourceId": "nps", "place": "Arikara villages" },
+        { "date": "1804-10-15", "lat": 46.1, "lon": -100.6, "confidence": "interpolated" },
+        { "date": "1804-10-20", "lat": 46.81, "lon": -100.8, "confidence": "interpolated" },
+        { "date": "1804-10-26", "lat": 47.25, "lon": -101.1, "confidence": "reconstructed", "sourceId": "nps", "place": "the Mandan villages" },
+        { "date": "1804-11-02", "lat": 47.3, "lon": -101.07, "confidence": "documented", "sourceId": "thwaites", "place": "Fort Mandan" },
+        { "date": "1805-04-07", "lat": 47.3, "lon": -101.07, "confidence": "documented", "sourceId": "thwaites" }
+      ]
+    },
+    {
+      "mode": "river",
+      "vessel": "pirogues and dugout canoes",
+      "points": [
+        { "date": "1805-04-07", "lat": 47.3, "lon": -101.07, "confidence": "documented", "sourceId": "thwaites", "place": "leaves Fort Mandan" },
+        { "date": "1805-04-12", "lat": 47.6, "lon": -101.9, "confidence": "interpolated" },
+        { "date": "1805-04-17", "lat": 47.98, "lon": -102.5, "confidence": "interpolated" },
+        { "date": "1805-04-21", "lat": 48.1, "lon": -103.4, "confidence": "interpolated" },
+        { "date": "1805-04-26", "lat": 47.98, "lon": -103.98, "confidence": "reconstructed", "sourceId": "nps", "place": "mouth of the Yellowstone" },
+        { "date": "1805-05-03", "lat": 48.07, "lon": -104.9, "confidence": "interpolated" },
+        { "date": "1805-05-08", "lat": 48.09, "lon": -105.7, "confidence": "interpolated", "place": "Milk River" },
+        { "date": "1805-05-14", "lat": 47.95, "lon": -106.6, "confidence": "interpolated" },
+        { "date": "1805-05-20", "lat": 47.6, "lon": -107.95, "confidence": "reconstructed", "sourceId": "nps", "place": "mouth of the Musselshell" },
+        { "date": "1805-05-26", "lat": 47.72, "lon": -108.7, "confidence": "reconstructed", "sourceId": "nps", "place": "first sight of the Rockies" },
+        { "date": "1805-05-31", "lat": 47.78, "lon": -109.6, "confidence": "interpolated", "place": "the White Cliffs" },
+        { "date": "1805-06-03", "lat": 47.93, "lon": -110.48, "confidence": "reconstructed", "sourceId": "nps", "place": "mouth of the Marias" },
+        { "date": "1805-06-13", "lat": 47.55, "lon": -111.12, "confidence": "reconstructed", "sourceId": "nps", "place": "the Great Falls" },
+        { "date": "1805-07-15", "lat": 47.5, "lon": -111.3, "confidence": "reconstructed", "sourceId": "nps", "place": "end of the portage" },
+        { "date": "1805-07-19", "lat": 46.84, "lon": -111.92, "confidence": "reconstructed", "sourceId": "nps", "place": "Gates of the Mountains" },
+        { "date": "1805-07-23", "lat": 46.33, "lon": -111.52, "confidence": "interpolated" },
+        { "date": "1805-07-27", "lat": 45.93, "lon": -111.51, "confidence": "reconstructed", "sourceId": "nps", "place": "Three Forks" },
+        { "date": "1805-08-02", "lat": 45.87, "lon": -112.1, "confidence": "interpolated" },
+        { "date": "1805-08-06", "lat": 45.54, "lon": -112.33, "confidence": "interpolated" },
+        { "date": "1805-08-08", "lat": 45.39, "lon": -112.46, "confidence": "reconstructed", "sourceId": "nps", "place": "Beaverhead Rock" }
+      ]
+    },
+    {
+      "mode": "land",
+      "vessel": "on foot",
+      "party": "Lewis, ahead of the canoes",
+      "points": [
+        { "date": "1805-08-09", "lat": 45.3, "lon": -112.55, "confidence": "reconstructed", "sourceId": "nps" },
+        { "date": "1805-08-10", "lat": 45.05, "lon": -112.8, "confidence": "reconstructed", "sourceId": "nps" },
+        { "date": "1805-08-11", "lat": 44.98, "lon": -113.15, "confidence": "reconstructed", "sourceId": "nps", "place": "Horse Prairie" },
+        { "date": "1805-08-12", "lat": 44.97, "lon": -113.44, "confidence": "documented", "sourceId": "thwaites", "place": "Lemhi Pass, the Continental Divide" },
+        { "date": "1805-08-13", "lat": 44.97, "lon": -113.62, "confidence": "reconstructed", "sourceId": "nps", "place": "Cameahwait's camp, Lemhi valley" },
+        { "date": "1805-08-15", "lat": 44.97, "lon": -113.44, "confidence": "reconstructed", "sourceId": "nps" },
+        { "date": "1805-08-17", "lat": 45.0, "lon": -112.86, "confidence": "documented", "sourceId": "thwaites", "place": "Camp Fortunate" },
+        { "date": "1805-08-26", "lat": 44.97, "lon": -113.44, "confidence": "reconstructed", "sourceId": "nps" },
+        { "date": "1805-08-30", "lat": 45.1, "lon": -113.85, "confidence": "reconstructed", "sourceId": "nps", "place": "down the Lemhi" },
+        { "date": "1805-09-03", "lat": 45.55, "lon": -113.95, "confidence": "interpolated" },
+        { "date": "1805-09-04", "lat": 45.82, "lon": -113.98, "confidence": "reconstructed", "sourceId": "nps", "place": "Ross's Hole" },
+        { "date": "1805-09-09", "lat": 46.75, "lon": -114.09, "confidence": "documented", "sourceId": "thwaites", "place": "Travelers' Rest" },
+        { "date": "1805-09-13", "lat": 46.63, "lon": -114.58, "confidence": "reconstructed", "sourceId": "nps", "place": "Lolo Pass" },
+        { "date": "1805-09-16", "lat": 46.52, "lon": -115.0, "confidence": "reconstructed", "sourceId": "nps", "place": "the Lolo Trail" },
+        { "date": "1805-09-18", "lat": 46.42, "lon": -115.45, "confidence": "interpolated" },
+        { "date": "1805-09-20", "lat": 46.37, "lon": -115.94, "confidence": "reconstructed", "sourceId": "nps", "place": "Weippe Prairie" },
+        { "date": "1805-09-26", "lat": 46.5, "lon": -116.33, "confidence": "reconstructed", "sourceId": "nps", "place": "Canoe Camp" }
+      ]
+    },
+    {
+      "mode": "river",
+      "vessel": "dugout canoes",
+      "points": [
+        { "date": "1805-10-07", "lat": 46.5, "lon": -116.33, "confidence": "documented", "sourceId": "thwaites", "place": "launch at Canoe Camp" },
+        { "date": "1805-10-09", "lat": 46.47, "lon": -116.75, "confidence": "interpolated" },
+        { "date": "1805-10-10", "lat": 46.42, "lon": -117.03, "confidence": "reconstructed", "sourceId": "nps", "place": "the Snake" },
+        { "date": "1805-10-12", "lat": 46.62, "lon": -117.55, "confidence": "interpolated" },
+        { "date": "1805-10-14", "lat": 46.58, "lon": -118.3, "confidence": "interpolated" },
+        { "date": "1805-10-16", "lat": 46.22, "lon": -119.03, "confidence": "reconstructed", "sourceId": "nps", "place": "the Columbia" },
+        { "date": "1805-10-18", "lat": 46.06, "lon": -118.92, "confidence": "interpolated" },
+        { "date": "1805-10-20", "lat": 45.93, "lon": -119.35, "confidence": "interpolated" },
+        { "date": "1805-10-21", "lat": 45.72, "lon": -120.2, "confidence": "interpolated" },
+        { "date": "1805-10-23", "lat": 45.64, "lon": -120.95, "confidence": "reconstructed", "sourceId": "nps", "place": "Celilo Falls" },
+        { "date": "1805-10-25", "lat": 45.61, "lon": -121.18, "confidence": "reconstructed", "sourceId": "nps", "place": "The Dalles" },
+        { "date": "1805-10-29", "lat": 45.71, "lon": -121.5, "confidence": "interpolated" },
+        { "date": "1805-11-01", "lat": 45.66, "lon": -121.9, "confidence": "reconstructed", "sourceId": "nps", "place": "the Cascades" },
+        { "date": "1805-11-02", "lat": 45.63, "lon": -122.02, "confidence": "reconstructed", "sourceId": "nps", "place": "Beacon Rock" },
+        { "date": "1805-11-04", "lat": 45.62, "lon": -122.62, "confidence": "interpolated" },
+        { "date": "1805-11-05", "lat": 46.1, "lon": -122.92, "confidence": "interpolated" },
+        { "date": "1805-11-06", "lat": 46.2, "lon": -123.35, "confidence": "interpolated" },
+        { "date": "1805-11-07", "lat": 46.26, "lon": -123.58, "confidence": "reconstructed", "sourceId": "nps", "place": "Pillar Rock" },
+        { "date": "1805-11-15", "lat": 46.26, "lon": -123.93, "confidence": "reconstructed", "sourceId": "nps", "place": "Station Camp" },
+        { "date": "1805-11-26", "lat": 46.22, "lon": -123.7, "confidence": "interpolated", "place": "crossing the estuary" },
+        { "date": "1805-12-07", "lat": 46.13, "lon": -123.88, "confidence": "documented", "sourceId": "thwaites", "place": "Fort Clatsop" },
+        { "date": "1806-03-23", "lat": 46.13, "lon": -123.88, "confidence": "documented", "sourceId": "thwaites", "place": "leaves Fort Clatsop" },
+        { "date": "1806-03-28", "lat": 46.18, "lon": -123.2, "confidence": "interpolated" },
+        { "date": "1806-04-02", "lat": 45.62, "lon": -122.62, "confidence": "interpolated" },
+        { "date": "1806-04-10", "lat": 45.66, "lon": -121.9, "confidence": "reconstructed", "sourceId": "nps" },
+        { "date": "1806-04-16", "lat": 45.61, "lon": -121.18, "confidence": "reconstructed", "sourceId": "nps" },
+        { "date": "1806-04-24", "lat": 45.7, "lon": -120.5, "confidence": "reconstructed", "sourceId": "nps", "place": "trades canoes for horses" }
+      ]
+    },
+    {
+      "mode": "land",
+      "vessel": "on horseback",
+      "points": [
+        { "date": "1806-04-24", "lat": 45.7, "lon": -120.5, "confidence": "reconstructed", "sourceId": "nps" },
+        { "date": "1806-04-28", "lat": 46.06, "lon": -118.92, "confidence": "reconstructed", "sourceId": "nps", "place": "the Walla Walla" },
+        { "date": "1806-05-04", "lat": 46.42, "lon": -117.03, "confidence": "reconstructed", "sourceId": "nps" },
+        { "date": "1806-05-14", "lat": 46.23, "lon": -116.03, "confidence": "reconstructed", "sourceId": "nps", "place": "Camp Chopunnish" },
+        { "date": "1806-06-10", "lat": 46.37, "lon": -115.94, "confidence": "reconstructed", "sourceId": "nps", "place": "Weippe Prairie" },
+        { "date": "1806-06-17", "lat": 46.48, "lon": -115.4, "confidence": "reconstructed", "sourceId": "nps", "place": "turned back by snow" },
+        { "date": "1806-06-24", "lat": 46.37, "lon": -115.94, "confidence": "reconstructed", "sourceId": "nps" },
+        { "date": "1806-06-29", "lat": 46.63, "lon": -114.58, "confidence": "reconstructed", "sourceId": "nps", "place": "Lolo Pass" },
+        { "date": "1806-06-30", "lat": 46.75, "lon": -114.09, "confidence": "documented", "sourceId": "thwaites", "place": "Travelers' Rest" },
+        { "date": "1806-07-03", "lat": 46.75, "lon": -114.09, "confidence": "documented", "sourceId": "thwaites" }
+      ]
+    },
+    {
+      "mode": "land",
+      "vessel": "on horseback",
+      "party": "Lewis",
+      "points": [
+        { "date": "1806-07-03", "lat": 46.75, "lon": -114.09, "confidence": "documented", "sourceId": "thwaites" },
+        { "date": "1806-07-04", "lat": 46.87, "lon": -113.95, "confidence": "reconstructed", "sourceId": "nps" },
+        { "date": "1806-07-06", "lat": 47.0, "lon": -113.0, "confidence": "reconstructed", "sourceId": "nps", "place": "the Blackfoot River" },
+        { "date": "1806-07-07", "lat": 47.15, "lon": -112.45, "confidence": "reconstructed", "sourceId": "nps", "place": "Lewis and Clark Pass" },
+        { "date": "1806-07-11", "lat": 47.52, "lon": -111.32, "confidence": "reconstructed", "sourceId": "nps", "place": "the Great Falls" },
+        { "date": "1806-07-18", "lat": 47.85, "lon": -111.55, "confidence": "interpolated" },
+        { "date": "1806-07-22", "lat": 48.6, "lon": -112.7, "confidence": "reconstructed", "sourceId": "nps", "place": "Camp Disappointment" },
+        { "date": "1806-07-26", "lat": 48.45, "lon": -112.75, "confidence": "reconstructed", "sourceId": "nps", "place": "Two Medicine River" },
+        { "date": "1806-07-28", "lat": 47.93, "lon": -110.48, "confidence": "reconstructed", "sourceId": "nps", "place": "mouth of the Marias" }
+      ]
+    },
+    {
+      "mode": "river",
+      "vessel": "canoes",
+      "party": "Lewis",
+      "points": [
+        { "date": "1806-07-28", "lat": 47.93, "lon": -110.48, "confidence": "reconstructed", "sourceId": "nps" },
+        { "date": "1806-07-31", "lat": 47.72, "lon": -108.7, "confidence": "interpolated" },
+        { "date": "1806-08-03", "lat": 47.95, "lon": -106.6, "confidence": "interpolated" },
+        { "date": "1806-08-07", "lat": 47.98, "lon": -103.98, "confidence": "reconstructed", "sourceId": "nps", "place": "mouth of the Yellowstone" },
+        { "date": "1806-08-12", "lat": 47.95, "lon": -102.55, "confidence": "reconstructed", "sourceId": "nps", "place": "the parties reunite" }
+      ]
+    },
+    {
+      "mode": "land",
+      "vessel": "on horseback",
+      "party": "Clark",
+      "points": [
+        { "date": "1806-07-03", "lat": 46.75, "lon": -114.09, "confidence": "documented", "sourceId": "thwaites" },
+        { "date": "1806-07-05", "lat": 45.82, "lon": -113.98, "confidence": "reconstructed", "sourceId": "nps", "place": "Ross's Hole" },
+        { "date": "1806-07-07", "lat": 45.6, "lon": -113.45, "confidence": "reconstructed", "sourceId": "nps", "place": "the Big Hole" },
+        { "date": "1806-07-08", "lat": 45.0, "lon": -112.86, "confidence": "reconstructed", "sourceId": "nps", "place": "Camp Fortunate" }
+      ]
+    },
+    {
+      "mode": "river",
+      "vessel": "canoes",
+      "party": "Clark",
+      "points": [
+        { "date": "1806-07-10", "lat": 45.0, "lon": -112.86, "confidence": "reconstructed", "sourceId": "nps" },
+        { "date": "1806-07-11", "lat": 45.39, "lon": -112.46, "confidence": "interpolated" },
+        { "date": "1806-07-12", "lat": 45.87, "lon": -112.1, "confidence": "interpolated" },
+        { "date": "1806-07-13", "lat": 45.93, "lon": -111.51, "confidence": "reconstructed", "sourceId": "nps", "place": "Three Forks" }
+      ]
+    },
+    {
+      "mode": "land",
+      "vessel": "on horseback",
+      "party": "Clark",
+      "points": [
+        { "date": "1806-07-13", "lat": 45.93, "lon": -111.51, "confidence": "reconstructed", "sourceId": "nps" },
+        { "date": "1806-07-15", "lat": 45.67, "lon": -110.9, "confidence": "reconstructed", "sourceId": "nps", "place": "Bozeman Pass" },
+        { "date": "1806-07-16", "lat": 45.66, "lon": -110.56, "confidence": "reconstructed", "sourceId": "nps", "place": "the Yellowstone" },
+        { "date": "1806-07-24", "lat": 45.63, "lon": -109.25, "confidence": "reconstructed", "sourceId": "nps", "place": "Canoe Camp on the Yellowstone" }
+      ]
+    },
+    {
+      "mode": "river",
+      "vessel": "canoes",
+      "party": "Clark",
+      "points": [
+        { "date": "1806-07-24", "lat": 45.63, "lon": -109.25, "confidence": "reconstructed", "sourceId": "nps" },
+        { "date": "1806-07-25", "lat": 45.99, "lon": -108.0, "confidence": "documented", "sourceId": "thwaites", "place": "Pompeys Pillar" },
+        { "date": "1806-07-26", "lat": 46.15, "lon": -107.47, "confidence": "interpolated", "place": "mouth of the Bighorn" },
+        { "date": "1806-07-29", "lat": 46.4, "lon": -105.85, "confidence": "interpolated" },
+        { "date": "1806-07-31", "lat": 47.1, "lon": -104.7, "confidence": "interpolated" },
+        { "date": "1806-08-03", "lat": 47.98, "lon": -103.98, "confidence": "reconstructed", "sourceId": "nps", "place": "mouth of the Yellowstone" },
+        { "date": "1806-08-12", "lat": 47.95, "lon": -102.55, "confidence": "reconstructed", "sourceId": "nps", "place": "the parties reunite" }
+      ]
+    },
+    {
+      "mode": "river",
+      "vessel": "canoes",
+      "points": [
+        { "date": "1806-08-12", "lat": 47.95, "lon": -102.55, "confidence": "reconstructed", "sourceId": "nps" },
+        { "date": "1806-08-14", "lat": 47.33, "lon": -101.39, "confidence": "reconstructed", "sourceId": "nps", "place": "the Mandan and Hidatsa villages" },
+        { "date": "1806-08-17", "lat": 47.3, "lon": -101.07, "confidence": "reconstructed", "sourceId": "nps" },
+        { "date": "1806-08-22", "lat": 45.58, "lon": -100.45, "confidence": "interpolated" },
+        { "date": "1806-08-26", "lat": 44.35, "lon": -100.37, "confidence": "interpolated" },
+        { "date": "1806-08-30", "lat": 43.06, "lon": -98.55, "confidence": "interpolated" },
+        { "date": "1806-09-04", "lat": 42.47, "lon": -96.38, "confidence": "reconstructed", "sourceId": "nps", "place": "Floyd's Bluff" },
+        { "date": "1806-09-09", "lat": 41.05, "lon": -95.88, "confidence": "interpolated" },
+        { "date": "1806-09-15", "lat": 39.11, "lon": -94.61, "confidence": "interpolated" },
+        { "date": "1806-09-20", "lat": 38.6, "lon": -91.05, "confidence": "reconstructed", "sourceId": "nps", "place": "La Charette" },
+        { "date": "1806-09-21", "lat": 38.78, "lon": -90.48, "confidence": "reconstructed", "sourceId": "nps" },
+        { "date": "1806-09-23", "lat": 38.63, "lon": -90.19, "confidence": "documented", "sourceId": "thwaites", "place": "St. Louis" }
+      ]
+    }
+  ],
+  "moments": [
+    {
+      "date": "1804-05-14", "lat": 38.82, "lon": -90.12, "kind": "turning-point",
+      "title": "Up the Missouri",
+      "text": "Some forty men in a keelboat and two pirogues push off against the current of the Missouri. Jefferson has asked them to find the most direct water route across the continent.",
+      "isQuote": false, "sourceId": "thwaites"
+    },
+    {
+      "date": "1804-08-03", "lat": 41.45, "lon": -96.01, "kind": "encounter",
+      "title": "Council Bluff",
+      "text": "The captains hold their first council, with Oto and Missouria leaders, handing out medals and announcing that a new government in Washington now claims their country.",
+      "isQuote": false, "sourceId": "thwaites"
+    },
+    {
+      "date": "1804-08-20", "lat": 42.47, "lon": -96.38, "kind": "hardship",
+      "title": "Sergeant Floyd",
+      "text": "Charles Floyd dies of what was probably a burst appendix. He is the only member of the expedition to die on the journey, and is buried on a bluff above the river.",
+      "isQuote": false, "sourceId": "thwaites"
+    },
+    {
+      "date": "1804-09-25", "lat": 44.35, "lon": -100.37, "kind": "encounter",
+      "title": "Standoff with the Lakota",
+      "text": "At the mouth of the Bad River a meeting with the Teton Lakota nearly ends in a fight over passage up the river. The chief Black Buffalo defuses it.",
+      "isQuote": false, "sourceId": "thwaites"
+    },
+    {
+      "date": "1804-10-26", "lat": 47.25, "lon": -101.1, "kind": "encounter",
+      "title": "The Mandan and Hidatsa villages",
+      "text": "They reach the earth-lodge towns at the Knife River, the great trading center of the northern Plains, home to more people than St. Louis. They build Fort Mandan nearby and winter there.",
+      "isQuote": false, "sourceId": "thwaites", "slowMotion": true
+    },
+    {
+      "date": "1804-11-04", "lat": 47.3, "lon": -101.07, "kind": "encounter",
+      "title": "Sacagawea",
+      "text": "The captains hire the trader Toussaint Charbonneau as an interpreter. With him comes his teenage wife Sacagawea, a Shoshone woman taken captive from the Rocky Mountains as a girl, whose people they will need.",
+      "isQuote": false, "sourceId": "thwaites"
+    },
+    {
+      "date": "1805-04-07", "lat": 47.3, "lon": -101.07, "kind": "turning-point",
+      "title": "Into the blank",
+      "text": "The keelboat goes back downriver with specimens for Jefferson, including a live prairie dog. The rest go west in canoes, into country Lewis calls untrodden. It is home to the Hidatsa, Blackfeet, Shoshone and many other nations.",
+      "isQuote": false, "sourceId": "thwaites"
+    },
+    {
+      "date": "1805-05-26", "lat": 47.72, "lon": -108.7, "kind": "journal",
+      "title": "The Rocky Mountains",
+      "text": "From a high ridge Lewis sees snow-covered mountains for the first time. He is glad to be nearing the head of the Missouri, and uneasy at how much they will have to cross.",
+      "isQuote": false, "sourceId": "thwaites"
+    },
+    {
+      "date": "1805-06-13", "lat": 47.55, "lon": -111.12, "kind": "landfall",
+      "title": "The Great Falls",
+      "text": "Lewis hears a roar and sees spray rising like smoke: the Great Falls of the Missouri, the grandest sight he has ever seen. There are five falls, not one, and the canoes must be carried around all of them.",
+      "isQuote": false, "sourceId": "thwaites", "slowMotion": true
+    },
+    {
+      "date": "1805-06-22", "lat": 47.5, "lon": -111.25, "kind": "hardship",
+      "title": "The portage",
+      "text": "Eighteen miles around the falls take nearly a month: canoes dragged on cut wheels over prickly pear, through hailstorms and past grizzly bears.",
+      "isQuote": false, "sourceId": "thwaites"
+    },
+    {
+      "date": "1805-08-08", "lat": 45.39, "lon": -112.46, "kind": "encounter",
+      "title": "Beaverhead Rock",
+      "text": "Sacagawea recognizes a rock shaped like a swimming beaver. Her people's summer country is close, she says, on a river flowing west.",
+      "isQuote": false, "sourceId": "thwaites"
+    },
+    {
+      "date": "1805-08-12", "lat": 44.97, "lon": -113.44, "kind": "turning-point",
+      "title": "The view from the ridge",
+      "text": "immence ranges of high mountains still to the West of us with their tops partially covered with snow.",
+      "isQuote": true, "sourceId": "thwaites", "slowMotion": true
+    },
+    {
+      "date": "1805-08-13", "lat": 44.97, "lon": -113.62, "kind": "encounter",
+      "title": "Cameahwait's Shoshone",
+      "text": "On the far side Lewis meets a Shoshone band led by Cameahwait. They have horses, and they know the mountains. The easy portage to the Columbia does not exist.",
+      "isQuote": false, "sourceId": "thwaites"
+    },
+    {
+      "date": "1805-08-17", "lat": 45.0, "lon": -112.86, "kind": "encounter",
+      "title": "Sacagawea's brother",
+      "text": "At Camp Fortunate, as Sacagawea begins to interpret, she recognizes Cameahwait as her brother. The Shoshone trade the horses that will carry the expedition over the mountains.",
+      "isQuote": false, "sourceId": "thwaites", "slowMotion": true
+    },
+    {
+      "date": "1805-09-16", "lat": 46.52, "lon": -115.0, "kind": "hardship",
+      "title": "Snow on the Lolo Trail",
+      "text": "On the high ridges of the Bitterroots they lose the trail in snow, and with no game they kill colts to eat. Clark writes that he has never been so wet and cold.",
+      "isQuote": false, "sourceId": "thwaites"
+    },
+    {
+      "date": "1805-09-20", "lat": 46.37, "lon": -115.94, "kind": "encounter",
+      "title": "The Nez Perce",
+      "text": "Starving, Clark's advance party comes down onto the Weippe Prairie among the Nimiipuu, the Nez Perce, who feed them. A leader called Twisted Hair draws them a map of the rivers to the sea.",
+      "isQuote": false, "sourceId": "thwaites"
+    },
+    {
+      "date": "1805-10-16", "lat": 46.22, "lon": -119.03, "kind": "turning-point",
+      "title": "The Columbia",
+      "text": "Down the Clearwater and the Snake, they reach the great river of the West, crowded with salmon fishing camps.",
+      "isQuote": false, "sourceId": "thwaites"
+    },
+    {
+      "date": "1805-11-07", "lat": 46.26, "lon": -123.58, "kind": "landfall",
+      "title": "Ocean in view",
+      "text": "Ocian in view! O! the joy.",
+      "isQuote": true, "sourceId": "thwaites", "slowMotion": true
+    },
+    {
+      "date": "1805-11-24", "lat": 46.26, "lon": -123.93, "kind": "turning-point",
+      "title": "The vote",
+      "text": "Where to spend the winter is put to a vote of the whole party. York, an enslaved man, votes, and so does Sacagawea. They choose the south shore, near the Clatsop.",
+      "isQuote": false, "sourceId": "thwaites"
+    },
+    {
+      "date": "1806-03-23", "lat": 46.13, "lon": -123.88, "kind": "journal",
+      "title": "Homeward",
+      "text": "After a winter in which it rained on all but a dozen days, they leave Fort Clatsop for home.",
+      "isQuote": false, "sourceId": "thwaites"
+    },
+    {
+      "date": "1806-07-03", "lat": 46.75, "lon": -114.09, "kind": "turning-point",
+      "title": "Two parties",
+      "text": "At Travelers' Rest the captains split up to explore more country: Lewis north to the Marias, Clark south to the Yellowstone.",
+      "isQuote": false, "sourceId": "thwaites"
+    },
+    {
+      "date": "1806-07-25", "lat": 45.99, "lon": -108.0, "kind": "journal",
+      "title": "Pompeys Pillar",
+      "text": "Clark carves his name and the date into a sandstone tower by the Yellowstone and names it for Sacagawea's son, Jean Baptiste, whom he calls Pomp. The carving is still there.",
+      "isQuote": false, "sourceId": "thwaites"
+    },
+    {
+      "date": "1806-07-27", "lat": 48.45, "lon": -112.75, "kind": "encounter",
+      "title": "Two Medicine River",
+      "text": "Lewis's small party camps with eight young Piegan Blackfeet men. At dawn a fight over guns and horses leaves two of the Blackfeet dead, the only killings of the expedition.",
+      "isQuote": false, "sourceId": "thwaites"
+    },
+    {
+      "date": "1806-08-12", "lat": 47.95, "lon": -102.55, "kind": "turning-point",
+      "title": "Together again",
+      "text": "The two parties meet again on the Missouri below the Yellowstone. At the Mandan villages, Sacagawea, Charbonneau and their son stay behind.",
+      "isQuote": false, "sourceId": "thwaites"
+    },
+    {
+      "date": "1806-09-23", "lat": 38.63, "lon": -90.19, "kind": "landfall",
+      "title": "St. Louis",
+      "text": "They come down the Missouri to St. Louis to a crowd on the riverbank. Many had given them up for dead.",
+      "isQuote": false, "sourceId": "thwaites", "slowMotion": true
+    }
+  ],
+  "sources": [
+    {
+      "id": "thwaites",
+      "title": "Original Journals of the Lewis and Clark Expedition, 1804–1806",
+      "author": "Reuben Gold Thwaites (editor), 1904–1905",
+      "url": "https://archive.org/search?query=%22original+journals+of+the+lewis+and+clark+expedition%22",
+      "publicDomain": true
+    },
+    {
+      "id": "nps",
+      "title": "Lewis and Clark National Historic Trail",
+      "author": "National Park Service",
+      "url": "https://www.nps.gov/lecl/",
+      "publicDomain": true
+    },
+    {
+      "id": "moulton",
+      "title": "The Journals of the Lewis and Clark Expedition",
+      "author": "Gary E. Moulton (editor), University of Nebraska Press, 1983–2001",
+      "url": "https://lewisandclarkjournals.unl.edu/",
+      "publicDomain": false
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "type": "FeatureCollection",
+  "note": "Approximate, hand-drawn: the world as mapped by Latin Christendom around the year 1000, from Roman and Arabic geography, plus the Norse North Atlantic. Other cultures knew, and had mapped, far more; world mode follows the European charts because the five voyages do.",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": { "name": "Europe, the Mediterranean and the Near East" },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [-12, 64], [5, 63], [15, 69.5], [30, 71], [45, 67], [58, 58], [66, 48], [72, 38], [72, 28], [66, 24], [58, 22], [55, 16],
+          [45, 12], [43, 11], [38, 15], [33, 22], [28, 26], [20, 27], [10, 28], [0, 29], [-8, 28.5], [-11, 29.5], [-12, 36],
+          [-12, 44], [-12, 50], [-14, 58], [-12, 64]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": { "name": "The Norse North Atlantic" },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [-26, 67.5], [-12, 67], [-10, 62], [-16, 61], [-26, 62.5], [-40, 59], [-50, 60], [-54, 64.5], [-52, 67], [-46, 64], [-42, 62], [-30, 66], [-26, 67.5]
+        ]]
+      }
+    }
+  ]
+}

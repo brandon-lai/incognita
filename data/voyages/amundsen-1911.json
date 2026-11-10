@@ -1,0 +1,182 @@
+{
+  "id": "amundsen-1911",
+  "title": "The South Pole",
+  "explorer": "Roald Amundsen",
+  "years": [1911, 1912],
+  "calendar": "gregorian",
+  "status": "draft",
+  "home": { "name": "Framheim, Bay of Whales", "lat": -78.55, "lon": -163.8 },
+  "summary": "Five Norwegians with dogs and skis race a British expedition to the last great blank on the map. They find a new way up through the mountains and reach the Pole on 14 December 1911.",
+  "sourceNote": "Amundsen's own account, The South Pole, appeared in English in 1912, written up from his diary. Positions on the polar journey come from his sun sights, which later checks found to be good.",
+  "knownWorld": {
+    "type": "FeatureCollection",
+    "note": "Approximate, hand-drawn: the world on the charts of 1910. Antarctica was known only at its edges, along the Ross Sea and the Ice Barrier, and along Shackleton's route up the Beardmore Glacier to 88°23′ south.",
+    "features": [
+      {
+        "type": "Feature",
+        "properties": { "name": "The charted world" },
+        "geometry": { "type": "Polygon", "coordinates": [[[-180, -64], [180, -64], [180, 85], [-180, 85], [-180, -64]]] }
+      },
+      {
+        "type": "Feature",
+        "properties": { "name": "The Ross Sea and the edge of the Barrier" },
+        "geometry": {
+          "type": "Polygon",
+          "coordinates": [[[160, -64], [210, -64], [210, -76.5], [200, -77.6], [195, -78.4], [190, -78.2], [182, -78], [172, -78], [166, -77.6], [163, -74], [166, -71], [170, -69], [160, -64]]]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": { "name": "Scott's and Shackleton's routes to the south" },
+        "geometry": {
+          "type": "Polygon",
+          "coordinates": [[[164, -77.5], [176, -78], [178, -81], [175, -83.4], [171, -84], [165, -86], [162, -88.5], [158, -88.4], [160, -85.5], [165, -83.5], [167, -81], [164, -77.5]]]
+        }
+      }
+    ]
+  },
+  "legs": [
+    {
+      "mode": "sea",
+      "vessel": "Fram",
+      "points": [
+        { "date": "1911-01-02", "lat": -66.6, "lon": -178.5, "confidence": "reconstructed", "sourceId": "amundsen", "place": "the Antarctic Circle" },
+        { "date": "1911-01-07", "lat": -71.5, "lon": -177.0, "confidence": "interpolated", "place": "through the pack" },
+        { "date": "1911-01-11", "lat": -77.9, "lon": -172.0, "confidence": "reconstructed", "sourceId": "amundsen", "place": "the Ice Barrier" },
+        { "date": "1911-01-14", "lat": -78.45, "lon": -164.0, "confidence": "documented", "sourceId": "amundsen", "place": "the Bay of Whales" }
+      ]
+    },
+    {
+      "mode": "ice",
+      "vessel": "sledges and dogs",
+      "points": [
+        { "date": "1911-01-14", "lat": -78.55, "lon": -163.8, "confidence": "documented", "sourceId": "amundsen", "place": "Framheim" },
+        { "date": "1911-02-10", "lat": -78.55, "lon": -163.8, "confidence": "documented", "sourceId": "amundsen", "place": "first depot journey" },
+        { "date": "1911-02-14", "lat": -80.0, "lon": -163.5, "confidence": "documented", "sourceId": "amundsen", "place": "depot at 80° south" },
+        { "date": "1911-02-16", "lat": -78.55, "lon": -163.8, "confidence": "documented", "sourceId": "amundsen" },
+        { "date": "1911-09-08", "lat": -78.55, "lon": -163.8, "confidence": "documented", "sourceId": "amundsen", "place": "the false start" },
+        { "date": "1911-09-12", "lat": -80.0, "lon": -163.5, "confidence": "documented", "sourceId": "amundsen" },
+        { "date": "1911-09-16", "lat": -78.55, "lon": -163.8, "confidence": "documented", "sourceId": "amundsen" },
+        { "date": "1911-10-20", "lat": -78.55, "lon": -163.8, "confidence": "documented", "sourceId": "amundsen", "place": "for the Pole" },
+        { "date": "1911-10-23", "lat": -80.0, "lon": -163.5, "confidence": "documented", "sourceId": "amundsen" },
+        { "date": "1911-11-03", "lat": -82.0, "lon": -163.5, "confidence": "documented", "sourceId": "amundsen" },
+        { "date": "1911-11-11", "lat": -84.0, "lon": -163.5, "confidence": "documented", "sourceId": "amundsen", "place": "mountains in sight" },
+        { "date": "1911-11-17", "lat": -85.1, "lon": -163.5, "confidence": "documented", "sourceId": "amundsen", "place": "foot of the Axel Heiberg Glacier" },
+        { "date": "1911-11-21", "lat": -85.6, "lon": -165.5, "confidence": "reconstructed", "sourceId": "amundsen", "place": "the Butcher's Shop" },
+        { "date": "1911-11-26", "lat": -85.9, "lon": -166.0, "confidence": "interpolated" },
+        { "date": "1911-12-01", "lat": -86.5, "lon": -165.0, "confidence": "reconstructed", "sourceId": "amundsen", "place": "the Devil's Glacier" },
+        { "date": "1911-12-04", "lat": -87.0, "lon": -165.0, "confidence": "interpolated" },
+        { "date": "1911-12-08", "lat": -88.38, "lon": -165.0, "confidence": "documented", "sourceId": "amundsen", "place": "past Shackleton's farthest south" },
+        { "date": "1911-12-14", "lat": -90.0, "lon": 0.0, "confidence": "documented", "sourceId": "amundsen", "place": "the South Pole" },
+        { "date": "1911-12-17", "lat": -90.0, "lon": 0.0, "confidence": "documented", "sourceId": "amundsen" },
+        { "date": "1911-12-25", "lat": -87.6, "lon": -165.0, "confidence": "interpolated" },
+        { "date": "1912-01-04", "lat": -85.6, "lon": -165.5, "confidence": "reconstructed", "sourceId": "amundsen" },
+        { "date": "1912-01-06", "lat": -85.1, "lon": -163.5, "confidence": "reconstructed", "sourceId": "amundsen" },
+        { "date": "1912-01-14", "lat": -82.0, "lon": -163.5, "confidence": "interpolated" },
+        { "date": "1912-01-25", "lat": -78.55, "lon": -163.8, "confidence": "documented", "sourceId": "amundsen", "place": "Framheim" }
+      ]
+    },
+    {
+      "mode": "sea",
+      "vessel": "Fram",
+      "points": [
+        { "date": "1912-01-30", "lat": -78.45, "lon": -164.0, "confidence": "documented", "sourceId": "amundsen", "place": "leaves the Bay of Whales" },
+        { "date": "1912-02-03", "lat": -77.9, "lon": -175.0, "confidence": "interpolated" },
+        { "date": "1912-02-10", "lat": -70.0, "lon": 178.0, "confidence": "interpolated" },
+        { "date": "1912-02-20", "lat": -58.0, "lon": 165.0, "confidence": "interpolated" },
+        { "date": "1912-03-01", "lat": -47.0, "lon": 152.0, "confidence": "interpolated" },
+        { "date": "1912-03-05", "lat": -43.6, "lon": 148.3, "confidence": "interpolated" },
+        { "date": "1912-03-07", "lat": -43.05, "lon": 147.45, "confidence": "documented", "sourceId": "amundsen", "place": "Hobart" }
+      ]
+    }
+  ],
+  "moments": [
+    {
+      "date": "1911-01-14", "lat": -78.45, "lon": -164.0, "kind": "landfall",
+      "title": "The Bay of Whales",
+      "text": "The Fram anchors in an inlet of the Ice Barrier that Shackleton had thought too unstable to winter on. Amundsen, reading the old charts, judges that it has not moved in seventy years, and builds his hut on the ice itself.",
+      "isQuote": false, "sourceId": "amundsen", "slowMotion": true
+    },
+    {
+      "date": "1911-02-14", "lat": -80.0, "lon": -163.5, "kind": "journal",
+      "title": "Depots",
+      "text": "Before winter they haul food south and cache it in depots at 80, 81 and 82 degrees, marking each with a line of flags across the route so it can be found in fog.",
+      "isQuote": false, "sourceId": "amundsen"
+    },
+    {
+      "date": "1911-04-22", "lat": -78.55, "lon": -163.8, "kind": "journal",
+      "title": "The polar night",
+      "text": "The sun sets for four months. In the hut and tunnels dug into the snow, the men refit sledges, make lighter equipment and plan.",
+      "isQuote": false, "sourceId": "amundsen"
+    },
+    {
+      "date": "1911-09-08", "lat": -78.55, "lon": -163.8, "kind": "hardship",
+      "title": "The false start",
+      "text": "Too eager to beat Scott, they set out with the cold still near minus fifty. Dogs freeze, men's heels are frostbitten, and they retreat in disorder. Hjalmar Johansen's open anger at the retreat splits the party.",
+      "isQuote": false, "sourceId": "amundsen"
+    },
+    {
+      "date": "1911-10-20", "lat": -78.55, "lon": -163.8, "kind": "turning-point",
+      "title": "Five men",
+      "text": "Amundsen, Olav Bjaaland, Helmer Hanssen, Sverre Hassel and Oscar Wisting leave for the Pole with four sledges and fifty-two dogs.",
+      "isQuote": false, "sourceId": "amundsen"
+    },
+    {
+      "date": "1911-11-11", "lat": -84.0, "lon": -163.5, "kind": "journal",
+      "title": "Mountains",
+      "text": "A great range rises on the horizon to the south, peak behind peak, where no map shows anything. Amundsen names it for Queen Maud.",
+      "isQuote": false, "sourceId": "amundsen", "slowMotion": true
+    },
+    {
+      "date": "1911-11-17", "lat": -85.1, "lon": -163.5, "kind": "turning-point",
+      "title": "The Axel Heiberg Glacier",
+      "text": "Instead of Shackleton's route, far to the west, they look for their own way up. A steep, broken glacier climbs nearly 3,000 metres to the plateau in four days.",
+      "isQuote": false, "sourceId": "amundsen"
+    },
+    {
+      "date": "1911-11-21", "lat": -85.6, "lon": -165.5, "kind": "hardship",
+      "title": "The Butcher's Shop",
+      "text": "At the top, as planned from the start, they kill twenty-four of the dogs to feed the rest and themselves. Amundsen writes that the camp's name was well earned.",
+      "isQuote": false, "sourceId": "amundsen"
+    },
+    {
+      "date": "1911-12-08", "lat": -88.38, "lon": -165.0, "kind": "turning-point",
+      "title": "Farther than anyone",
+      "text": "They pass 88° 23′, Shackleton's farthest south, and the Norwegian flag goes up on the leading sledge.",
+      "isQuote": false, "sourceId": "amundsen"
+    },
+    {
+      "date": "1911-12-14", "lat": -90.0, "lon": 0.0, "kind": "landfall",
+      "title": "The Pole",
+      "text": "In the afternoon the sledge-meters show the distance run. All five hands hold the flag as it is planted. They call the plateau King Haakon VII's Plateau, and before leaving set up a tent with a letter for Scott.",
+      "isQuote": false, "sourceId": "amundsen", "slowMotion": true
+    },
+    {
+      "date": "1912-01-25", "lat": -78.55, "lon": -163.8, "kind": "landfall",
+      "title": "Back to Framheim",
+      "text": "After more than three months on the ice, the five come back to the hut early in the morning, with eleven of the dogs, all in good health.",
+      "isQuote": false, "sourceId": "amundsen", "slowMotion": true
+    },
+    {
+      "date": "1912-03-07", "lat": -43.05, "lon": 147.45, "kind": "turning-point",
+      "title": "Hobart",
+      "text": "From Tasmania Amundsen cables the news to the world. Scott's party had reached the Pole five weeks after him; none of the five survived the journey back.",
+      "isQuote": false, "sourceId": "huntford"
+    }
+  ],
+  "sources": [
+    {
+      "id": "amundsen",
+      "title": "The South Pole: An Account of the Norwegian Antarctic Expedition in the Fram, 1910–1912",
+      "author": "Roald Amundsen, translated by A. G. Chater, 1912",
+      "url": "https://archive.org/search?query=%22the+south+pole%22+amundsen+chater",
+      "publicDomain": true
+    },
+    {
+      "id": "huntford",
+      "title": "Scott and Amundsen (The Last Place on Earth)",
+      "author": "Roland Huntford, 1979",
+      "publicDomain": false
+    }
+  ]
+}

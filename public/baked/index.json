@@ -1,0 +1,87 @@
+[
+ {
+  "id": "columbus-1492",
+  "title": "The First Voyage",
+  "explorer": "Christopher Columbus",
+  "years": [
+   1492,
+   1493
+  ],
+  "summary": "Columbus sails west from Spain to reach Asia, sure it lies a few weeks away. He finds islands no European chart holds, and calls the people who live there Indians.",
+  "status": "draft",
+  "home": {
+   "name": "Palos de la Frontera",
+   "lat": 37.23,
+   "lon": -6.89
+  },
+  "days": 224
+ },
+ {
+  "id": "magellan-1519",
+  "title": "Around the World",
+  "explorer": "Ferdinand Magellan and Juan Sebastián Elcano",
+  "years": [
+   1519,
+   1522
+  ],
+  "summary": "Five ships sail west to reach the Spice Islands by a strait no one has found, across an ocean no one guessed was so wide. Three years later one ship comes home with eighteen of the 260 or so who left.",
+  "status": "draft",
+  "home": {
+   "name": "Sanlúcar de Barrameda",
+   "lat": 36.78,
+   "lon": -6.35
+  },
+  "days": 1082
+ },
+ {
+  "id": "cook-1768",
+  "title": "The Endeavour",
+  "explorer": "James Cook",
+  "years": [
+   1768,
+   1771
+  ],
+  "summary": "Sent to Tahiti to watch Venus cross the sun, then south to find a continent that was not there. Cook charts the coasts of New Zealand and eastern Australia instead, with the navigator Tupaia aboard.",
+  "status": "draft",
+  "home": {
+   "name": "Plymouth",
+   "lat": 50.35,
+   "lon": -4.14
+  },
+  "days": 1051
+ },
+ {
+  "id": "lewis-clark-1804",
+  "title": "The Corps of Discovery",
+  "explorer": "Meriwether Lewis and William Clark",
+  "years": [
+   1804,
+   1806
+  ],
+  "summary": "Up the Missouri, over the Rockies and down the Columbia to the Pacific, looking for a water route across the continent. There was none, and they survived on the help of the nations whose lands they crossed.",
+  "status": "draft",
+  "home": {
+   "name": "Camp Dubois, near St. Louis",
+   "lat": 38.82,
+   "lon": -90.12
+  },
+  "days": 862
+ },
+ {
+  "id": "amundsen-1911",
+  "title": "The South Pole",
+  "explorer": "Roald Amundsen",
+  "years": [
+   1911,
+   1912
+  ],
+  "summary": "Five Norwegians with dogs and skis race a British expedition to the last great blank on the map. They find a new way up through the mountains and reach the Pole on 14 December 1911.",
+  "status": "draft",
+  "home": {
+   "name": "Framheim, Bay of Whales",
+   "lat": -78.55,
+   "lon": -163.8
+  },
+  "days": 430
+ }
+]
