@@ -18,6 +18,7 @@ export default defineConfig({
   worker: { format: 'es' },
   build: {
     target: 'es2022',
+    chunkSizeWarningLimit: 800,
     // three.js is most of the weight and changes least often: its own chunk caches across deploys.
     rollupOptions: { output: { manualChunks: { three: ['three'], react: ['react', 'react-dom', '@react-three/fiber'] } } },
   },
