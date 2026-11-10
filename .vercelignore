@@ -1,9 +1,10 @@
-.env
-.env.*
-!.env.example
-node_modules
-.cache
-dist
-scripts
-data
+# Anchored: a bare "data" would also drop app/data.
+/.env
+/.env.*
+!/.env.example
+/node_modules
+/.cache
+/dist
+/scripts
+/data
 *.log
