@@ -162,7 +162,7 @@ export class Stage {
     this.ghostDraw = 0;
     this.orbit.follow = false;
     this.orbit.lag = 1.6;
-    this.orbit.targetDistance = this.aspect < 0.8 ? 4.1 : 3.5;
+    this.orbit.userZoom = 1;
     this.orbit.spin = 0.035;
     if (card) this.focusHome(card);
     this.emit({ endingCard: false, introNote: null, title: '', voyageId: null, error: null });
@@ -356,6 +356,8 @@ export class Stage {
 
     if (this.screen === 'landing' || this.screen === 'loading') {
       this.homeAmount = Math.min(1, this.homeAmount + dt * 0.6);
+      // Smaller on portrait screens, so the title has room above it.
+      this.orbit.targetDistance = this.orbit.zoomed(this.aspect < 0.8 ? 5.2 : 3.5);
       this.sunFromCamera();
     }
 

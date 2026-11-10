@@ -365,7 +365,8 @@ function Driver() {
     const wantShift = wide && stage.screen === 'landing' ? -0.2 * size.width : wide && stage.screen === 'ending' ? -0.16 * size.width : 0;
     shift.current += (wantShift - shift.current) * (1 - Math.exp(-dt / 0.6));
     // On phones the ending globe rides above the cartouche.
-    const wantLift = !wide && stage.screen === 'ending' && size.width < size.height ? 0.22 * size.height : 0;
+    const portrait = size.width < size.height;
+    const wantLift = !wide && portrait ? (stage.screen === 'ending' ? 0.22 : stage.screen === 'landing' ? -0.06 : 0) * size.height : 0;
     lift.current += (wantLift - lift.current) * (1 - Math.exp(-dt / 0.6));
     if (Math.abs(shift.current) > 0.5 || Math.abs(lift.current) > 0.5) cam.setViewOffset(size.width, size.height, shift.current, lift.current, size.width, size.height);
     else cam.clearViewOffset();

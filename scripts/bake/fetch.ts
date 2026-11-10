@@ -1,5 +1,5 @@
 // Downloads the public source data the bake reads into .cache/ (gitignored).
-// Everything here is public domain or openly licensed; see ATTRIBUTION.md.
+// Everything here is public domain or openly licensed; see the README's Attribution section.
 //
 //   pnpm fetch-data
 //

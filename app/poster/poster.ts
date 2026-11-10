@@ -113,14 +113,17 @@ export async function drawPoster(size: PosterSize): Promise<HTMLCanvasElement> {
   ctx.lineWidth = u * 0.12;
   ctx.strokeRect(u * 3.6, u * 3.6, W - u * 7.2, H - u * 7.2);
 
+  // Centre the globe and the title block together.
   const gs = W * 0.86;
-  const gy = size === 'phone' ? H * 0.16 : H * 0.08;
+  const u0 = W / 100;
+  const block = gs + u0 * 32;
+  const gy = Math.max(u0 * 8, (H - block) / 2 - u0 * 2);
   ctx.drawImage(globe, (W - gs) / 2, gy, gs, gs);
 
   const v = s.voyage;
   const r = s.route;
   const cx = W / 2;
-  let y = gy + gs + u * (size === 'phone' ? 10 : 6);
+  let y = gy + gs + u * 10;
   ctx.textAlign = 'center';
   ctx.fillStyle = PALETTE.ink;
   ctx.font = `${u * 3.2}px "IM Fell English", Georgia, serif`;

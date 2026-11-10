@@ -117,7 +117,8 @@ class Overlay {
       const icon = p.el.querySelector<HTMLElement>('.icon');
       if (icon) icon.style.transform = `translate(-50%, -78%) rotate(${tilt}rad) scaleX(${west ? -1 : 1})`;
       const wake = p.el.querySelector<HTMLElement>('.wake');
-      if (wake) wake.style.transform = `translate(-100%, -50%) rotate(${ang}rad)`;
+      // Right-middle of the wake at the vessel, trailing back along the heading.
+      if (wake) wake.style.transform = `rotate(${ang}rad) translate(-100%, -50%)`;
     });
 
     // Ghost map names.

@@ -91,7 +91,7 @@ a {
   line-height: 0;
 }
 .vessel .wake {
-  transform-origin: 100% 50%;
+  transform-origin: 0 0;
 }
 .ghost-label {
   position: absolute;
@@ -819,6 +819,17 @@ a {
 @media (max-width: 720px) {
   .landing-head {
     padding-left: 0;
+  }
+  .landing::before {
+    content: '';
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: 46%;
+    background: linear-gradient(180deg, rgba(18, 13, 9, 0.92) 55%, rgba(18, 13, 9, 0));
+    pointer-events: none;
+  }
+  .landing-head {
+    position: relative;
   }
   .whose {
     font-size: 13px;
