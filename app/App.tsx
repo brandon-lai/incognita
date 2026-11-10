@@ -14,6 +14,13 @@ import { Timeline } from './ui/Timeline';
 import { useIdle, useStage } from './ui/useStage';
 
 const params = new URLSearchParams(location.search);
+const hasWebGL2 = (() => {
+  try {
+    return !!document.createElement('canvas').getContext('webgl2');
+  } catch {
+    return false;
+  }
+})();
 const attachOverlay = (el: HTMLDivElement | null) => overlay.attach(el);
 
 function MuteButton() {
@@ -42,6 +49,7 @@ export function App() {
   const [focused, setFocused] = useState<string | null>(null);
   const [about, setAbout] = useState(false);
   const [journalOpen, setJournalOpen] = useState(false);
+  const [weather, setWeather] = useState(0);
   const playingView = snap.screen === 'voyage' || snap.screen === 'world';
   const idle = useIdle(3200, playingView && snap.playing && !snap.holding && !about);
   const lastPick = useRef<(() => void) | null>(null);
@@ -136,6 +144,11 @@ export function App() {
       if (e.type === 'landho') sound.setLandho(true);
       if (e.type === 'resume') sound.setLandho(false);
       if (e.type === 'moment' && s.scene?.moments[e.index]?.kind === 'landfall') sound.swell();
+      // Hardship brings brief weather over the vessel: rain and a darker sky.
+      if ((e.type === 'moment' || e.type === 'landho') && s.scene?.moments[e.index]?.kind === 'hardship') {
+        setWeather((n) => n + 1);
+        window.setTimeout(() => setWeather((n) => n - 1), 5000);
+      }
       if (e.type === 'ending') {
         sound.setLandho(false);
         sound.setMode(null);
@@ -163,6 +176,18 @@ export function App() {
     return () => window.clearInterval(t);
   }, []);
 
+  // Audio can only start inside a gesture. A deep link opens a voyage without one,
+  // so the first tap or key anywhere starts (or resumes) the sound.
+  useEffect(() => {
+    const wake = () => sound.start();
+    window.addEventListener('pointerdown', wake, { once: true });
+    window.addEventListener('keydown', wake, { once: true });
+    return () => {
+      window.removeEventListener('pointerdown', wake);
+      window.removeEventListener('keydown', wake);
+    };
+  }, []);
+
   // Keyboard: space plays and pauses, escape closes.
   useEffect(() => {
     const key = (e: KeyboardEvent) => {
@@ -186,6 +211,15 @@ export function App() {
     gestures.current = el ? attachGestures(el) : null;
   }, []);
 
+  if (!hasWebGL2) {
+    return (
+      <div className="nogl">
+        <h1 className="title">Terra Incognita</h1>
+        <p className="lede">This map is a 3D globe drawn with WebGL 2, which this browser does not offer. A recent Chrome, Edge, Firefox or Safari will show it.</p>
+      </div>
+    );
+  }
+
   const s = stage.scene;
   const julian = snap.calendar === 'julian' && s?.kind === 'voyage';
   const lag = julian && s ? julianLag(toJdn(s.route.start, 'julian') + snap.day) : 0;
@@ -197,6 +231,7 @@ export function App() {
         <GlobeCanvas />
       </div>
       <div className="overlay-layer" ref={attachOverlay} aria-hidden="true" />
+      <div className={`weather${weather > 0 && playingView ? ' is-on' : ''}`} aria-hidden="true" />
 
       {snap.screen === 'landing' && (
         <Landing
@@ -240,7 +275,7 @@ export function App() {
       {snap.screen === 'intro' && (
         <div className="intro">
           <p className="intro-title">{snap.title}</p>
-          {snap.introNote && <p className="intro-note">{snap.introNote}</p>}
+          {snap.introNote ? <p className="intro-note">{snap.introNote}</p> : s?.voyage && <p className="intro-source">{s.voyage.sourceNote}</p>}
           <button className="btn" onClick={() => stage.skipIntro()}>
             Set sail
           </button>

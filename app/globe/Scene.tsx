@@ -60,6 +60,7 @@ function Globe() {
           uKnownAge: { value: 99 },
           uSatellite: { value: 0 },
           uFlat: { value: 0 },
+          uFogWhite: { value: 0 },
           uParchment: { value: color(PALETTE.parchment) },
           uParchmentDark: { value: color(PALETTE.parchmentDark) },
           uParchmentLight: { value: color(PALETTE.parchmentLight) },
@@ -159,11 +160,13 @@ function Globe() {
         u.uSeenSize.value.set(s.seen.width, s.seen.height);
         u.uTicksPerDay.value = s.route.ticksPerDay;
         u.uHasSeen.value = 1;
+        u.uFogWhite.value = s.kind === 'voyage' && s.route.legs.some((l) => l.mode === 'ice') ? 1 : 0;
         loadDetail(s.id, s.route.detail);
       } else {
         u.uSeen.value = emptySeen();
         u.uSeenSize.value.set(1, 1);
         u.uHasSeen.value = 0;
+        u.uFogWhite.value = 0;
         loadDetail(null, undefined);
       }
       old.dispose();

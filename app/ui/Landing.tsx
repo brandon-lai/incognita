@@ -53,6 +53,7 @@ export function Landing({ cards, error, focused, onFocus, onPick, onWorld, onAbo
             <span className="card-title">{c.explorer}</span>
             <span className="card-sub">{c.title}</span>
             <span className="card-summary">{c.summary}</span>
+            <span className="card-source">{c.sourceNote.split(/(?<=\.)\s/)[0]}</span>
             {c.status !== 'reviewed' && <span className="stamp">{c.status === 'placeholder' ? 'Placeholder data' : 'Draft route'}</span>}
           </button>
         ))}

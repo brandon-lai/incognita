@@ -7,7 +7,7 @@
   "status": "draft",
   "home": { "name": "Palos de la Frontera", "lat": 37.23, "lon": -6.89 },
   "summary": "Columbus sails west from Spain to reach Asia, sure it lies a few weeks away. He finds islands no European chart holds, and calls the people who live there Indians.",
-  "sourceNote": "Columbus's own log is lost. It survives mainly through an abstract made decades later by Bartolomé de las Casas, partly quoted and partly paraphrased. Dates are Julian, as he recorded them; add nine days for the Gregorian calendar.",
+  "sourceNote": "Columbus's own log is lost; it survives mainly through an abstract made decades later by Bartolomé de las Casas, partly quoted and partly paraphrased. Dates are Julian, as he recorded them; add nine days for the Gregorian calendar.",
   "knownWorld": {
     "type": "FeatureCollection",
     "note": "Approximate, hand-drawn: the world as mapped by European charts and portolans in 1492, including the African coast Portuguese pilots had charted as far as Bartolomeu Dias's turn in 1488.",

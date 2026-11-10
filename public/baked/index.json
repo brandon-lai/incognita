@@ -8,6 +8,7 @@
    1493
   ],
   "summary": "Columbus sails west from Spain to reach Asia, sure it lies a few weeks away. He finds islands no European chart holds, and calls the people who live there Indians.",
+  "sourceNote": "Columbus's own log is lost; it survives mainly through an abstract made decades later by Bartolomé de las Casas, partly quoted and partly paraphrased. Dates are Julian, as he recorded them; add nine days for the Gregorian calendar.",
   "status": "draft",
   "home": {
    "name": "Palos de la Frontera",
@@ -25,6 +26,7 @@
    1522
   ],
   "summary": "Five ships sail west to reach the Spice Islands by a strait no one has found, across an ocean no one guessed was so wide. Three years later one ship comes home with eighteen of the 260 or so who left.",
+  "sourceNote": "Most of what we know comes from Antonio Pigafetta, a Venetian who sailed as a volunteer and kept a diary, and from the pilot Francisco Albo's log of daily latitudes. Dates are Julian, as recorded; add ten days for the Gregorian calendar.",
   "status": "draft",
   "home": {
    "name": "Sanlúcar de Barrameda",
@@ -42,6 +44,7 @@
    1771
   ],
   "summary": "Sent to Tahiti to watch Venus cross the sun, then south to find a continent that was not there. Cook charts the coasts of New Zealand and eastern Australia instead, with the navigator Tupaia aboard.",
+  "sourceNote": "Cook's own journal survives, along with Joseph Banks's and others'. Cook kept ship's time, in which the day began at noon, so some dates differ by one from the calendar ashore.",
   "status": "draft",
   "home": {
    "name": "Plymouth",
@@ -59,6 +62,7 @@
    1806
   ],
   "summary": "Up the Missouri, over the Rockies and down the Columbia to the Pacific, looking for a water route across the continent. There was none, and they survived on the help of the nations whose lands they crossed.",
+  "sourceNote": "The captains and several of the men kept journals, published in full only in the twentieth century. Camp positions follow the National Park Service's reconstruction of the trail. Rivers between camps are drawn as straight lines, not as the river ran.",
   "status": "draft",
   "home": {
    "name": "Camp Dubois, near St. Louis",
@@ -76,6 +80,7 @@
    1912
   ],
   "summary": "Five Norwegians with dogs and skis race a British expedition to the last great blank on the map. They find a new way up through the mountains and reach the Pole on 14 December 1911.",
+  "sourceNote": "Amundsen's own account, The South Pole, appeared in English in 1912, written up from his diary. Positions on the polar journey come from his sun sights, which later checks found to be good.",
   "status": "draft",
   "home": {
    "name": "Framheim, Bay of Whales",

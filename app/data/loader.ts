@@ -11,6 +11,8 @@ export interface VoyageCard {
   explorer: string;
   years: [number, number];
   summary: string;
+  /** Rule 5: what the source is, shown on the card. */
+  sourceNote: string;
   status: 'placeholder' | 'draft' | 'reviewed';
   home: { name: string; lat: number; lon: number };
   days: number;

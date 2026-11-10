@@ -26,6 +26,7 @@ uniform float uHomeAmount;
 uniform float uKnownAge;       // seconds since the known world began to burn in, spreading out from home
 uniform float uSatellite;      // ending: the charted map crossfades to satellite imagery
 uniform float uFlat;           // 1 for the poster: no night side
+uniform float uFogWhite;       // ice voyages: white fog over a white continent
 
 uniform vec3 uParchment;
 uniform vec3 uParchmentDark;
@@ -146,6 +147,8 @@ void main() {
   fog = mix(fog, uParchmentDark, smoothstep(0.0, -0.7, mist) * 0.12);
   float fiber = (snoise(dir * 700.0) * 0.6 + snoise(dir * 1900.0) * 0.4) * fine;
   fog *= 1.0 + fiber * 0.012;
+  // Polar fog thins to white towards the pole on ice voyages.
+  fog = mix(fog, vec3(0.86, 0.88, 0.9) * (0.95 + 0.05 * mist), uFogWhite * smoothstep(-0.55, -0.85, dir.y));
 
   float lat = asin(clamp(dir.y, -1.0, 1.0));
   float lon = atan(-dir.z, dir.x);

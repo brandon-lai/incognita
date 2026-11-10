@@ -51,7 +51,7 @@ async function main() {
     process.exit(1);
   }
 
-  const index: { id: string; title: string; explorer: string; years: [number, number]; summary: string; status: string; home: Voyage['home']; days: number }[] = [];
+  const index: ReturnType<typeof entry>[] = [];
   const baked = new Map<string, { route: BakedRoute; seen: Uint16Array }>();
   for (const v of voyages) {
     const dir = join(BAKED, v.id);
@@ -87,7 +87,7 @@ async function main() {
 }
 
 function entry(v: Voyage, route: BakedRoute) {
-  return { id: v.id, title: v.title, explorer: v.explorer, years: v.years, summary: v.summary, status: v.status, home: v.home, days: route.days };
+  return { id: v.id, title: v.title, explorer: v.explorer, years: v.years, summary: v.summary, sourceNote: v.sourceNote, status: v.status, home: v.home, days: route.days };
 }
 
 /**

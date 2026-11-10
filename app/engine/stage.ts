@@ -163,7 +163,7 @@ export class Stage {
     this.orbit.follow = false;
     this.orbit.lag = 1.6;
     this.orbit.userZoom = 1;
-    this.orbit.spin = 0.035;
+    this.orbit.spin = matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 0.035;
     if (card) this.focusHome(card);
     this.emit({ endingCard: false, introNote: null, title: '', voyageId: null, error: null });
   }

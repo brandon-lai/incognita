@@ -144,6 +144,7 @@ async function main() {
     const cards = await p.eval(`document.querySelectorAll('.card').length`);
     check('landing lists five voyages and world mode', cards === 6, `${cards} cards`);
     check('every voyage is labelled as draft data', (await p.eval(`document.querySelectorAll('.stamp').length`)) === 5);
+    check('each card says what its source is (rule 5)', await p.eval(`/las Casas/i.test(document.querySelector('.card-source')?.textContent)`));
     check('the landing says whose unknown it is', await p.eval(`/home to people who knew it well/.test(document.querySelector('.whose')?.textContent)`));
     check('landing globe shows only the home patch', await p.eval(stage(`s.homeAmount === 1 && s.scene === null`)));
     const px = await p.pixels();
@@ -185,6 +186,10 @@ async function main() {
     const before = await p.eval(stage(`s.clock.day`));
     await p.key('ArrowRight');
     check('the timeline works from the keyboard', (await p.eval(stage(`s.clock.day`))) > before);
+
+    // Hardship brings brief weather.
+    await p.eval(stage(`(s.seek(52.6), s.play(), 1)`));
+    check('a hardship moment brings rain and a darker sky', await p.until(`!!document.querySelector('.weather.is-on')`, 8000));
 
     // Land ho: time eases to a stop at the landfall, and a tap carries on.
     await p.eval(stage(`(s.seek(68.5), s.play(), 1)`));
