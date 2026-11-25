@@ -203,9 +203,8 @@ a {
   position: absolute;
   z-index: -1;
   inset: -12px -18px;
-  background: var(--night);
-  opacity: .91;
-  filter: blur(16px);
+  max-width: 600px;
+  background: radial-gradient(ellipse at 35% 45%, var(--night) 48%, transparent 80%);
 }
 .title {
   font-family: var(--pixel);
