@@ -65,19 +65,34 @@ async function browser() {
   let id = 0;
   const pending = new Map();
   const errors = [];
+  ws.onclose = () => {
+    for (const request of pending.values()) request.reject(new Error('Chrome debugging connection closed'));
+    pending.clear();
+  };
   ws.onmessage = (e) => {
     const m = JSON.parse(e.data);
-    if (m.id && pending.has(m.id)) {
-      pending.get(m.id)(m);
+    const request = pending.get(m.id);
+    if (request) {
       pending.delete(m.id);
+      if (m.error) request.reject(new Error(`${request.method}: ${m.error.message}`));
+      else request.resolve(m);
     }
     if (m.method === 'Runtime.exceptionThrown') errors.push(m.params.exceptionDetails.exception?.description ?? m.params.exceptionDetails.text);
     if (m.method === 'Runtime.consoleAPICalled' && m.params.type === 'error') errors.push(m.params.args.map((a) => a.value ?? a.description).join(' '));
   };
   const send = (method, params = {}) =>
-    new Promise((r) => {
+    new Promise((resolve, reject) => {
+      if (ws.readyState !== WebSocket.OPEN) return reject(new Error(`Chrome disconnected before ${method}`));
       const n = ++id;
-      pending.set(n, r);
+      const timeout = setTimeout(() => {
+        pending.delete(n);
+        reject(new Error(`Chrome did not answer ${method} within 45 seconds`));
+      }, 45000);
+      pending.set(n, {
+        method,
+        resolve: (message) => { clearTimeout(timeout); resolve(message); },
+        reject: (error) => { clearTimeout(timeout); reject(error); },
+      });
       ws.send(JSON.stringify({ id: n, method, params }));
     });
   await send('Page.enable');

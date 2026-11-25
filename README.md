@@ -102,6 +102,8 @@ pnpm e2e http://localhost:5173   # headless Chrome with software WebGL: the real
 
 `pnpm typecheck` checks both app and bake scripts. `pnpm build` creates the deployable globe and `/journals.html`. Use `TERRA_SHOTS=/path/to/output pnpm e2e <url>` to capture the browser tour. The existing GitHub integration deploys pushes to `main`.
 
+The release tour covers all five voyages, world replay, day bookmarks, a phone-poster download, keyboard scrubbing and recovery after a failed chart or imagery request. Run it against the public URL to check the custom HTTP 404 as well. Phone screenshots use a 390 × 844 emulated viewport; they do not measure real-device performance.
+
 The bake validates every voyage first and refuses to run on bad data:
 - dates out of order;
 - unknown sources;
