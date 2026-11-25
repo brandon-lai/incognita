@@ -50,15 +50,15 @@ export function Journal({ entries, landho, open, onToggle }: { entries: JournalE
   const list = useRef<HTMLDivElement>(null);
   const latest = entries[entries.length - 1];
   useEffect(() => {
-    list.current?.scrollTo({ top: 0, behavior: 'smooth' });
+    list.current?.scrollTo({ top: 0, behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth' });
   }, [entries.length]);
   return (
     <aside className={`journal${open ? ' is-open' : ''}${landho ? ' is-landho' : ''}`} aria-label="Journal">
-      <button className="journal-handle" onClick={onToggle} aria-expanded={open}>
+      <button className="journal-handle" onClick={onToggle} aria-expanded={open} aria-controls="journal-list" aria-label={`${latest?.moment.title ?? 'Journal'}: ${open ? 'collapse' : 'expand'} full journal`}>
         <span className="journal-handle-bar" aria-hidden="true" />
         <span>{latest ? latest.moment.title : 'Journal'}</span>
       </button>
-      <div className="journal-list" ref={list}>
+      <div className="journal-list" id="journal-list" ref={list}>
         {entries.length === 0 && <p className="entry-empty">Notes from the voyage appear here as it unfolds.</p>}
         {[...entries].reverse().map((e) => (
           <Entry key={e.key} e={e} current={e.key === landho?.key || e === latest} />

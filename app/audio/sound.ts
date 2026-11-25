@@ -76,12 +76,21 @@ export class Sound {
   }
 
   setMuted(m: boolean) {
-    this.muted = m;
     try {
       localStorage.setItem(MUTE_KEY, m ? '1' : '0');
     } catch {
       // Private mode: the choice lasts for this visit.
     }
+    this.applyMute(m);
+  }
+
+  forgetPreference() {
+    localStorage.removeItem(MUTE_KEY);
+    this.applyMute(false);
+  }
+
+  private applyMute(m: boolean) {
+    this.muted = m;
     if (this.master && this.ctx) this.master.gain.setTargetAtTime(m ? 0 : 0.8, this.ctx.currentTime, 0.15);
     for (const fn of this.listeners) fn();
   }
@@ -108,6 +117,7 @@ export class Sound {
     this.music.gain.value = 0.32;
     this.music.connect(master);
     this.buildBeds();
+    this.setLevels();
     this.timers.push(window.setInterval(() => this.schedule(), 250));
   }
 
@@ -250,7 +260,9 @@ export class Sound {
 
   stopAll() {
     this.setMode(null);
-    this.setLandho(false);
+    this.landho = false;
+    this.penBudget = 0;
+    this.setLevels();
   }
 
   private freq(deg: number) {

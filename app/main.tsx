@@ -4,6 +4,7 @@ import { stage } from './engine/stage';
 import { gl3 } from './globe/Scene';
 import { overlay } from './globe/overlay';
 import { drawPoster } from './poster/poster';
+import './foundation.css';
 import './styles.css';
 
 // A handle for the end-to-end checks and for poking at the stage from the console.

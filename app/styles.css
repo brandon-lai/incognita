@@ -1,17 +1,5 @@
 :root {
-  --night: #120d09;
-  --parchment: #e6d6b0;
-  --parchment-light: #f3e8cd;
-  --parchment-dark: #c4ad80;
-  --ink: #2a1c11;
-  --ink-soft: #5a4630;
-  --char: #5a3519;
-  --route: #8f2a17;
-  --sea: #3b5a66;
   --paper-shadow: 0 1px 0 rgba(255, 250, 235, 0.5) inset, 0 10px 30px rgba(0, 0, 0, 0.35);
-  --serif: 'IM Fell English', 'Iowan Old Style', Georgia, serif;
-  --serif-sc: 'IM Fell English SC', 'IM Fell English', Georgia, serif;
-  --sans: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
   --gutter: max(16px, env(safe-area-inset-left));
   color-scheme: dark;
 }
@@ -27,7 +15,8 @@ body,
   height: 100%;
   background: var(--night);
   color: var(--parchment-light);
-  overflow: hidden;
+  overflow-x: clip;
+  overflow-y: auto;
   overscroll-behavior: none;
 }
 
@@ -36,6 +25,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -webkit-tap-highlight-color: transparent;
 }
+#root:empty { height: auto; }
 
 button {
   font: inherit;
@@ -143,9 +133,11 @@ a {
 .icon-btn:focus-visible,
 .card:focus-visible,
 .link:focus-visible,
-.track:focus-visible,
+.track:has(:focus-visible),
+.journal-handle:focus-visible,
+.continue:focus-visible,
 .speed:focus-visible {
-  outline: 2px solid #d9a441;
+  outline: 2px solid var(--focus);
   outline-offset: 2px;
 }
 .link {
@@ -197,6 +189,17 @@ a {
   max-width: 520px;
   padding-left: clamp(0px, 3vw, 40px);
   pointer-events: none;
+  position: relative;
+  isolation: isolate;
+}
+.landing-head::before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  inset: -12px -18px;
+  background: var(--night);
+  opacity: .91;
+  filter: blur(16px);
 }
 .title {
   font-family: var(--serif);
@@ -233,13 +236,17 @@ a {
   letter-spacing: 0.04em;
   pointer-events: none;
 }
-.about-link {
+.landing-links {
   position: absolute;
   right: clamp(20px, 4vw, 56px);
   bottom: max(16px, env(safe-area-inset-bottom));
   font-size: 13px;
   color: rgba(243, 232, 205, 0.75);
+  display: flex;
+  gap: 18px;
+  align-items: center;
 }
+.landing-links a, .nogl a { color: var(--parchment-light); }
 .cards {
   display: flex;
   gap: 14px;
@@ -346,6 +353,7 @@ a {
 }
 
 /* Loading and intro */
+.loading,
 .intro {
   padding: 16px 18px 18px;
   border-radius: 4px;
@@ -434,6 +442,8 @@ a {
 .is-idle {
   cursor: none;
 }
+.is-idle .fades:focus-within,
+.is-idle .journal:focus-within { opacity: 1; }
 .hud {
   position: absolute;
   left: var(--gutter);
@@ -630,13 +640,9 @@ a {
   cursor: pointer;
   touch-action: none;
 }
-.track-line,
-.track-fill {
-  position: absolute;
-  left: 0;
-  top: 50%;
+.track-control { position: relative; width: 100%; height: 100%; display: flex; align-items: center; }
+.track-line {
   height: 2px;
-  margin-top: -1px;
   background: rgba(42, 28, 17, 0.25);
   width: 100%;
 }
@@ -644,16 +650,14 @@ a {
   background: var(--route);
 }
 .track-head {
-  position: absolute;
-  top: 50%;
   width: 14px;
   height: 14px;
-  margin: -7px 0 0 -7px;
   border-radius: 50%;
   background: var(--route);
   border: 2px solid var(--parchment-light);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
 }
+.track .mark { pointer-events: none; }
 .mark {
   position: absolute;
   top: 50%;
@@ -833,6 +837,28 @@ a {
   font-size: 15px;
   line-height: 1.55;
 }
+.about-tools { display: grid; justify-items: start; gap: 8px; }
+.cartouche .error { color: var(--route); }
+.landing { overflow-y: auto; }
+.cards { flex-shrink: 0; }
+@media (max-height: 590px) {
+  .landing { gap: 18px; pointer-events: auto; }
+  .corner-year { display: none; }
+  .landing-links { position: static; align-self: flex-end; }
+}
+.about-heading {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding-block: 6px;
+  background: var(--parchment-light);
+}
+.about-heading button { min-height: 44px; }
+.about a, .about button { scroll-margin-block: 60px 8px; }
 .about h2 {
   font-family: var(--serif);
   font-weight: 400;
@@ -892,7 +918,7 @@ a {
     right: var(--gutter);
   }
   .hud {
-    max-width: calc(100% - 170px);
+    max-width: calc(100% - 160px - 2 * var(--gutter));
   }
   .hud-date {
     font-size: 22px;
@@ -986,4 +1012,5 @@ a {
   .card {
     transition: none;
   }
+  .vessel, .fades, .journal, .weather { transition: none; }
 }

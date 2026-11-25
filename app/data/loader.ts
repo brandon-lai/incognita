@@ -57,6 +57,14 @@ type Request = DecodeRequest extends infer R ? (R extends DecodeRequest ? Omit<R
 function decodeInWorker<T>(req: Request): Promise<T> {
   if (!worker) {
     worker = new Worker(new URL('./decode.worker.ts', import.meta.url), { type: 'module' });
+    const fail = (message: string) => {
+      worker?.terminate();
+      worker = null;
+      for (const task of pending.values()) task.reject(new Error(message));
+      pending.clear();
+    };
+    worker.onerror = (event) => fail(event.message || 'The chart decoder stopped.');
+    worker.onmessageerror = () => fail('The chart decoder returned unreadable data.');
     worker.onmessage = (e: MessageEvent<{ id: number; error?: string }>) => {
       const p = pending.get(e.data.id);
       if (!p) return;

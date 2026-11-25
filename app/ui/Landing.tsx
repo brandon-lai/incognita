@@ -21,7 +21,7 @@ export function Landing({ cards, error, focused, onFocus, onPick, onWorld, onAbo
         <h1 className="title">Terra Incognita</h1>
         <p className="lede">Ride along with an expedition on a globe covered in fog. The fog lifts only where they could see, so the map you end with is the map they earned.</p>
         <p className="whose">
-          The fog shows what each expedition's own charts had not yet mapped. Every one of these lands was already home to people who knew it well.
+          The fog shows what each expedition's own charts had not yet mapped. A blank on a chart could be home to people who knew it well.
         </p>
       </header>
 
@@ -66,9 +66,10 @@ export function Landing({ cards, error, focused, onFocus, onPick, onWorld, onAbo
         )}
       </nav>
 
-      <button className="link about-link" onClick={onAbout}>
-        About this map
-      </button>
+      <nav className="landing-links" aria-label="Map resources">
+        <a className="link" href="/journals.html">Read the journals</a>
+        <button className="link about-link" onClick={onAbout}>About this map</button>
+      </nav>
     </div>
   );
 }

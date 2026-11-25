@@ -34,13 +34,13 @@ export function Ending({ onHome, onWorld }: { onHome: () => void; onWorld: () =>
           <p className="cartouche-kicker">1000 – 1912</p>
           <h2 className="cartouche-title">The world uncovering</h2>
           <p className="cartouche-text">
-            Five expeditions, and the charts that filled in around them. The fog that remains is what European maps still left blank in 1912, never what nobody knew.
+            Five expeditions, and the charts that filled in around them. The fog that remains is what these five reconstructions leave blank, not what nobody knew.
           </p>
           <div className="ending-actions">
             <button className="btn primary" onClick={onHome}>
               Choose a voyage
             </button>
-            <button className="btn" onClick={() => stage.seek(0)}>
+            <button className="btn" onClick={() => stage.replay()}>
               Watch again
             </button>
           </div>
@@ -86,7 +86,7 @@ export function Ending({ onHome, onWorld }: { onHome: () => void; onWorld: () =>
           <button className="link" disabled={!!saving} onClick={() => save('print')}>
             {saving === 'print' ? 'Drawing…' : 'Print poster'}
           </button>
-          <button className="link" onClick={() => stage.seek(0)}>
+          <button className="link" onClick={() => stage.replay()}>
             Replay
           </button>
         </div>

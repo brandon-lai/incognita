@@ -19,8 +19,9 @@ describe('voyage data', () => {
   });
 
   it.each(voyages.map((x) => [x.file, x.v] as const))('%s follows the accuracy rules', (_file, v) => {
-    // Rule 1: nothing is presented as reviewed until a person has reviewed it.
-    expect(['draft', 'placeholder']).toContain(v.status);
+    // The published text must not upgrade a draft (or lag a human review).
+    const published: Voyage = JSON.parse(readFileSync(join(BAKED, v.id, 'voyage.json'), 'utf8'));
+    expect(published.status).toBe(v.status);
     // Rule 5: say what the source is.
     expect(v.sourceNote.length).toBeGreaterThan(40);
     // Two sentences on the card.

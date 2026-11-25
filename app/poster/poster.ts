@@ -88,6 +88,7 @@ export async function drawPoster(size: PosterSize): Promise<HTMLCanvasElement> {
   const s = stage.scene;
   if (!s?.voyage) throw new Error('no voyage loaded');
   await document.fonts.load('64px "IM Fell English"').catch(() => undefined);
+  if (stage.scene !== s) throw new Error('the voyage changed before the poster was ready');
   const [W, H] = POSTER_SIZES[size];
   const maxRb = Math.min(4096, gl3.renderer?.capabilities.maxTextureSize ?? 2048);
   const px = Math.min(maxRb, Math.round(W * 0.94));
@@ -130,7 +131,7 @@ export async function drawPoster(size: PosterSize): Promise<HTMLCanvasElement> {
   ctx.fillText(v.explorer.toUpperCase().split('').join(String.fromCharCode(8202)), cx, y);
   y += u * 7.5;
   ctx.font = `${u * 7.5}px "IM Fell English", Georgia, serif`;
-  ctx.fillText(v.title, cx, y);
+  ctx.fillText(v.title, cx, y, W - u * 12);
   y += u * 5.5;
   ctx.font = `italic ${u * 3.2}px "IM Fell English", Georgia, serif`;
   ctx.fillText(`${formatDate(r.start, 0, r.calendar)} – ${formatDate(r.start, r.days, r.calendar)}`, cx, y);
@@ -138,7 +139,8 @@ export async function drawPoster(size: PosterSize): Promise<HTMLCanvasElement> {
   ctx.font = `${u * 2.6}px "IM Fell English", Georgia, serif`;
   ctx.fillStyle = PALETTE.char;
   const km = new Intl.NumberFormat('en').format(r.distanceKm ?? 0);
-  ctx.fillText(`${r.days} days · ${km} km`, cx, y);
+  ctx.fillText(`${r.days + 1} days · ${km} km`, cx, y);
+  if (v.status !== 'reviewed') ctx.fillText(v.status === 'draft' ? 'Draft route' : 'Placeholder data', cx, y + u * 4);
   // Rule ornament.
   ctx.strokeStyle = PALETTE.ink;
   ctx.lineWidth = u * 0.15;
@@ -153,12 +155,14 @@ export async function drawPoster(size: PosterSize): Promise<HTMLCanvasElement> {
 }
 
 export async function savePoster(size: PosterSize) {
+  const id = stage.scene?.id;
+  if (!id) throw new Error('no voyage loaded');
   const c = await drawPoster(size);
   const blob = await new Promise<Blob | null>((res) => c.toBlob(res, 'image/png'));
   if (!blob) throw new Error('could not encode the image');
   const a = document.createElement('a');
   a.href = URL.createObjectURL(blob);
-  a.download = posterFilename(stage.scene?.id ?? 'voyage', size);
+  a.download = posterFilename(id, size);
   document.body.appendChild(a);
   a.click();
   a.remove();

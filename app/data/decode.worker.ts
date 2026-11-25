@@ -28,7 +28,10 @@ self.onmessage = async (e: MessageEvent<DecodeRequest>) => {
       (self as unknown as Worker).postMessage({ id: req.id, width: png.width, height: png.height, data }, [data.buffer]);
       return;
     }
-    coastlines ??= getBytes(req.coastUrl).then((b) => new Float32Array(b));
+    coastlines ??= getBytes(req.coastUrl).then((b) => new Float32Array(b)).catch((err) => {
+      coastlines = null;
+      throw err;
+    });
     const [buf, lines] = await Promise.all([getBytes(req.url), coastlines]);
     const png = decode(buf);
     const seen = png.data as Uint16Array;

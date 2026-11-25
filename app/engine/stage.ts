@@ -72,6 +72,7 @@ export class Stage {
   version = 0;
   time = 0;
   aspect = 1;
+  suspended = false;
 
   // Globe uniforms.
   hist: number[] = new Array(9).fill(0);
@@ -152,6 +153,7 @@ export class Stage {
 
   showLanding(card: VoyageCard | null) {
     this.screen = 'landing';
+    this.snap = this.emptySnapshot();
     this.scene = null;
     this.clock = null;
     this.version++;
@@ -239,7 +241,6 @@ export class Stage {
 
   private begin(title: string) {
     this.version++;
-    this.journal = [];
     this.landhoEntry = null;
     this.satellite = 0;
     this.lineFade = 1;
@@ -248,6 +249,7 @@ export class Stage {
     this.scriptT = 0;
     this.screen = 'intro';
     const s = this.scene!;
+    this.journal = s.moments.flatMap((m, i) => m.day === 0 ? [this.entry(i, m)] : []);
     this.homeDir = s.home;
     this.homeAmount = 1;
     this.orbit.follow = false;
@@ -281,10 +283,14 @@ export class Stage {
 
   play() {
     if (!this.clock) return;
-    if (this.clock.day >= this.clock.days) this.clock.seek(0);
+    if (this.clock.day >= this.clock.days) this.seek(0);
     if (this.screen === 'ending') this.reopen();
     this.clock.playing = true;
     this.emit();
+  }
+  replay() {
+    this.seek(0);
+    this.play();
   }
   pause() {
     if (this.clock) this.clock.playing = false;
@@ -350,6 +356,7 @@ export class Stage {
   // --- Per frame ---------------------------------------------------------------
 
   frame(dt: number) {
+    if (this.suspended) return;
     this.time += dt;
     const c = this.clock;
     const s = this.scene;

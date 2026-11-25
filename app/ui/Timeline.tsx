@@ -1,27 +1,11 @@
-import { useRef } from 'react';
+import { Slider } from '../components/ui/slider';
 import { SPEEDS } from '../engine/clock';
 import { stage, type Snapshot } from '../engine/stage';
 
 /** Play, speed and the scrubber. Dragging re-fogs or reveals at once. */
 export function Timeline({ snap }: { snap: Snapshot }) {
-  const track = useRef<HTMLDivElement>(null);
   const moments = stage.scene?.moments ?? [];
   const days = Math.max(1, snap.days);
-
-  const seekFrom = (clientX: number) => {
-    const r = track.current!.getBoundingClientRect();
-    stage.seek(Math.max(0, Math.min(1, (clientX - r.left) / r.width)) * days);
-  };
-
-  const onKey = (e: React.KeyboardEvent) => {
-    const step = e.shiftKey ? days / 20 : Math.max(1, days / 200);
-    if (e.key === 'ArrowRight') stage.seek(snap.day + step);
-    else if (e.key === 'ArrowLeft') stage.seek(snap.day - step);
-    else if (e.key === 'Home') stage.seek(0);
-    else if (e.key === 'End') stage.seek(days);
-    else return;
-    e.preventDefault();
-  };
 
   const nextSpeed = () => {
     const i = SPEEDS.indexOf(snap.speed);
@@ -41,31 +25,15 @@ export function Timeline({ snap }: { snap: Snapshot }) {
           </svg>
         )}
       </button>
-      <div
-        className="track"
-        ref={track}
-        role="slider"
-        tabIndex={0}
-        aria-label="Voyage timeline"
-        aria-valuemin={0}
-        aria-valuemax={days}
-        aria-valuenow={Math.round(snap.day)}
-        aria-valuetext={snap.date}
-        onKeyDown={onKey}
-        onPointerDown={(e) => {
-          try {
-            e.currentTarget.setPointerCapture(e.pointerId);
-          } catch {
-            // Synthetic pointers cannot be captured; seeking still works.
-          }
-          seekFrom(e.clientX);
-        }}
-        onPointerMove={(e) => {
-          if (e.buttons & 1) seekFrom(e.clientX);
-        }}
+      <Slider
+        label="Voyage timeline"
+        valueText={snap.date}
+        max={days}
+        value={snap.day}
+        step={1}
+        largeStep={Math.max(1, Math.round(days / 20))}
+        onValueChange={(day) => stage.seek(day)}
       >
-        <div className="track-line" />
-        <div className="track-fill" style={{ width: `${(snap.day / days) * 100}%` }} />
         {moments.map((m, i) => (
           <span
             key={i}
@@ -74,8 +42,7 @@ export function Timeline({ snap }: { snap: Snapshot }) {
             title={m.title}
           />
         ))}
-        <div className="track-head" style={{ left: `${(snap.day / days) * 100}%` }} />
-      </div>
+      </Slider>
       <button className="speed" onClick={nextSpeed} aria-label={`Playback speed ${snap.speed} times. Change speed`}>
         {snap.speed}×
       </button>

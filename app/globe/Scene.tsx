@@ -33,7 +33,9 @@ function emptySeen() {
   return t;
 }
 
-function Globe() {
+type GlobeProps = { onError: (message: string) => void };
+
+function Globe({ onError }: GlobeProps) {
   const { gl } = useThree();
   const material = useMemo(
     () =>
@@ -86,7 +88,7 @@ function Globe() {
     let cancelled = false;
     const apply = (url: string) =>
       loader.loadAsync(url).then((tex) => {
-        if (cancelled) return;
+        if (cancelled) return tex.dispose();
         tex.colorSpace = THREE.SRGBColorSpace;
         tex.anisotropy = Math.min(8, gl.capabilities.getMaxAnisotropy());
         tex.wrapS = THREE.RepeatWrapping;
@@ -95,9 +97,22 @@ function Globe() {
         old?.dispose();
         setReady((n) => n + 1);
       });
-    apply('/imagery/earth-2048.jpg')
-      .then(() => apply(`/imagery/earth-${size}.jpg`))
-      .catch((err) => stage.setError(`Could not load the globe imagery (${String(err)}).`));
+    const loadImagery = async () => {
+      try {
+        await apply('/imagery/earth-2048.jpg');
+      } catch (err) {
+        console.warn('Globe preview unavailable; trying the full image.', err);
+      }
+      if (cancelled) return;
+      try {
+        await apply(`/imagery/earth-${size}.jpg`);
+      } catch (err) {
+        if (cancelled) return;
+        if (material.uniforms.uImagery.value) console.warn('Using the lower-resolution globe image.', err);
+        else onError('The globe imagery could not be downloaded. Check your connection and reload.');
+      }
+    };
+    void loadImagery();
     loadCoastTexture(size)
       .then(({ width, height, data }) => {
         if (cancelled) return;
@@ -109,11 +124,11 @@ function Globe() {
         t.needsUpdate = true;
         material.uniforms.uCoast.value = t;
       })
-      .catch((err) => stage.setError(`Could not load the coastline data (${String(err)}).`));
+      .catch((err) => { if (!cancelled) onError(`The coastline data could not be loaded: ${String(err)}`); });
     return () => {
       cancelled = true;
     };
-  }, [gl, material]);
+  }, [gl, material, onError]);
 
   // Sharper imagery for the voyage's region, swapped in when it arrives.
   const detailFor = useRef<string | null>(null);
@@ -379,7 +394,7 @@ function Driver() {
   return null;
 }
 
-export function GlobeCanvas() {
+export function GlobeCanvas({ onError }: GlobeProps) {
   return (
     <Canvas
       className="globe-canvas"
@@ -392,7 +407,7 @@ export function GlobeCanvas() {
     >
       <Driver />
       <Stars />
-      <Globe />
+      <Globe onError={onError} />
       <Lines />
     </Canvas>
   );

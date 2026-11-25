@@ -1,0 +1,19 @@
+@import "./paper.css";
+
+html { color-scheme: light; overflow-x: clip; }
+body { margin: 0; color: var(--ink); background: var(--parchment-light); font: 1.13rem/1.55 var(--serif); }
+main { max-width: 40rem; margin: auto; padding: 2rem max(1rem, 4vw) 4rem; overflow-wrap: anywhere; }
+a { color: var(--route); text-underline-offset: .17em; }
+a:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
+h1, h2, h3 { font-weight: 400; line-height: 1.12; text-wrap: balance; margin: .2em 0; }
+h1 { font-size: clamp(2.75rem, 7vw, 4.5rem); }
+h2 { font-size: 2.4rem; scroll-margin-top: 1rem; }
+h3 { font-size: 1.6rem; }
+header, article, footer { margin-top: 3rem; }
+article, footer { border-top: 1px solid var(--parchment-dark); padding-top: 1.5rem; }
+nav ol, ul { padding-inline-start: 1.5em; }
+.entries { list-style: none; padding: 0; }
+.entries > li { margin-block: 2em; }
+.byline, .date { font: 1rem var(--serif-sc); color: var(--char); margin-bottom: .5rem; }
+.references, footer, main > a { font: .875rem/1.55 var(--sans); }
+@media print { nav, footer, main > a, article > a, .references a[href^="/"] { display: none; } article { break-before: page; } }

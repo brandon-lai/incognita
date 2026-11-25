@@ -2,6 +2,7 @@ import { useCallback, useEffect, useRef, useState, useSyncExternalStore } from '
 import { sound } from './audio/sound';
 import { julianLag, toJdn } from './data/dates';
 import { loadIndex, loadVoyage, loadWorld, type VoyageCard } from './data/loader';
+import { startingPoint, voyageURL, type StartingPoint } from './data/voyage-link';
 import { overlay } from './globe/overlay';
 import { GlobeCanvas, gl3 } from './globe/Scene';
 import { stage } from './engine/stage';
@@ -43,11 +44,25 @@ function MuteButton() {
 }
 
 export function App() {
+  if (!hasWebGL2) {
+    return (
+      <main className="nogl">
+        <h1 className="title">Terra Incognita</h1>
+        <p className="lede">This browser cannot draw the 3D globe. You can still read all five expeditions in date order, with their notes and sources.</p>
+        <a href="/journals.html">Read the expedition journals</a>
+      </main>
+    );
+  }
+  return <MapApp />;
+}
+
+function MapApp() {
   const snap = useStage();
   const [cards, setCards] = useState<VoyageCard[] | null>(null);
   const [indexError, setIndexError] = useState<string | null>(null);
   const [focused, setFocused] = useState<string | null>(null);
   const [about, setAbout] = useState(false);
+  const [assetError, setAssetError] = useState<string | null>(null);
   const [journalOpen, setJournalOpen] = useState(false);
   const [weather, setWeather] = useState(0);
   const playingView = snap.screen === 'voyage' || snap.screen === 'world';
@@ -74,39 +89,24 @@ export function App() {
     fetchIndex();
   }, [fetchIndex]);
 
-  const pick = useCallback((card: VoyageCard) => {
-    sound.start();
-    sound.setVoyage(card.id);
-    stage.setLoading(card.title);
-    const go = () => {
-      stage.setLoading(card.title);
-      loadVoyage(card.id, gl3.size)
-        .then((v) => {
-          stage.startVoyage(v);
-          const day = Number(params.get('day'));
-          if (params.has('day') && Number.isFinite(day)) {
-            stage.seek(day);
-            if (params.has('paused')) stage.pause();
-          }
-          const u = new URL(location.href);
-          u.searchParams.set('voyage', card.id);
-          history.replaceState(null, '', u);
-        })
-        .catch((err) => stage.setError(`This voyage did not load (${String(err)}).`));
-    };
-    lastPick.current = go;
-    go();
-  }, []);
-
-  const world = useCallback(() => {
-    sound.start();
-    sound.setVoyage('world');
-    stage.setLoading('The world uncovering');
-    const go = () => {
-      stage.setLoading('The world uncovering');
-      loadWorld(gl3.size)
-        .then((w) => stage.startWorld(w))
-        .catch((err) => stage.setError(`World mode did not load (${String(err)}).`));
+  const openVoyage = useCallback((card: VoyageCard | null, at?: StartingPoint) => {
+    const id = card?.id ?? 'world';
+    const title = card?.title ?? 'The world uncovering';
+    sound.setVoyage(id);
+    setJournalOpen(false);
+    const go = async () => {
+      stage.setLoading(title);
+      try {
+        if (card) stage.startVoyage(await loadVoyage(id, gl3.size));
+        else stage.startWorld(await loadWorld(gl3.size));
+        if (at) {
+          stage.seek(at.day);
+          if (at.paused) stage.pause();
+        }
+        history.replaceState(null, '', voyageURL(location.href, id, at));
+      } catch (err) {
+        stage.setError(`The chart did not load. Check your connection and try again. (${String(err)})`);
+      }
     };
     lastPick.current = go;
     go();
@@ -116,10 +116,7 @@ export function App() {
     sound.stopAll();
     const card = cards?.find((c) => c.id === focused) ?? cards?.[0] ?? null;
     stage.showLanding(card);
-    const u = new URL(location.href);
-    u.searchParams.delete('voyage');
-    u.searchParams.delete('day');
-    history.replaceState(null, '', u);
+    history.replaceState(null, '', voyageURL(location.href, null));
   }, [cards, focused]);
 
   // Deep link: ?voyage=<id> opens straight into a voyage.
@@ -128,14 +125,17 @@ export function App() {
     if (opened.current || !cards) return;
     const id = params.get('voyage');
     const card = cards.find((c) => c.id === id);
-    if (card) {
+    if (card || id === 'world') {
       opened.current = true;
-      pick(card);
-    } else if (id === 'world') {
-      opened.current = true;
-      world();
+      openVoyage(card ?? null, startingPoint(params));
     }
-  }, [cards, pick, world]);
+  }, [cards, openVoyage]);
+
+  useEffect(() => {
+    stage.suspended = about || !!assetError;
+    if (stage.suspended) sound.stopAll();
+    return () => { stage.suspended = false; };
+  }, [about, assetError]);
 
   // Sound follows the stage.
   useEffect(() => {
@@ -159,7 +159,7 @@ export function App() {
     const t = window.setInterval(() => {
       const s = stage.scene;
       const c = stage.clock;
-      if (!s || !c) return;
+      if (!s || !c || stage.suspended) return;
       if (stage.screen === 'voyage' || stage.screen === 'world') {
         if (!c.holding) sound.setMode(c.playing ? (s.index.lead(c.day)?.mode ?? null) : null);
         if (c.holding) sound.setLandho(true);
@@ -180,9 +180,11 @@ export function App() {
   // so the first tap or key anywhere starts (or resumes) the sound.
   useEffect(() => {
     const wake = () => sound.start();
+    window.addEventListener('click', wake, { once: true });
     window.addEventListener('pointerdown', wake, { once: true });
     window.addEventListener('keydown', wake, { once: true });
     return () => {
+      window.removeEventListener('click', wake);
       window.removeEventListener('pointerdown', wake);
       window.removeEventListener('keydown', wake);
     };
@@ -191,10 +193,9 @@ export function App() {
   // Keyboard: space plays and pauses, escape closes.
   useEffect(() => {
     const key = (e: KeyboardEvent) => {
-      const tag = (e.target as HTMLElement)?.tagName;
-      if (tag === 'INPUT' || tag === 'TEXTAREA') return;
+      if (stage.suspended || e.defaultPrevented || e.altKey || e.ctrlKey || e.metaKey ||
+          (e.target instanceof Element && e.target.closest('button,a,input,textarea,select,[contenteditable="true"],[role="slider"]'))) return;
       if (e.key === ' ' && (stage.screen === 'voyage' || stage.screen === 'world')) {
-        if ((e.target as HTMLElement)?.closest('button, [role="slider"]')) return;
         e.preventDefault();
         if (stage.getSnapshot().holding) stage.resume();
         else stage.toggle();
@@ -211,12 +212,14 @@ export function App() {
     gestures.current = el ? attachGestures(el) : null;
   }, []);
 
-  if (!hasWebGL2) {
+  if (assetError) {
     return (
-      <div className="nogl">
-        <h1 className="title">Terra Incognita</h1>
-        <p className="lede">This map is a 3D globe drawn with WebGL 2, which this browser does not offer. A recent Chrome, Edge, Firefox or Safari will show it.</p>
-      </div>
+      <main className="nogl">
+        <h1 className="title">The globe could not load</h1>
+        <p role="alert">{assetError}</p>
+        <p><button className="btn" onClick={() => location.reload()}>Reload the map</button></p>
+        <a href="/journals.html">Read the journals instead</a>
+      </main>
     );
   }
 
@@ -228,7 +231,7 @@ export function App() {
   return (
     <div className={`app screen-${snap.screen}${idle ? ' is-idle' : ''}${snap.holding ? ' is-holding' : ''}`}>
       <div className="globe-layer" ref={globeLayer}>
-        <GlobeCanvas />
+        <GlobeCanvas onError={setAssetError} />
       </div>
       <div className="overlay-layer" ref={attachOverlay} aria-hidden="true" />
       <div className={`weather${weather > 0 && playingView ? ' is-on' : ''}`} aria-hidden="true" />
@@ -242,8 +245,8 @@ export function App() {
             setFocused(c.id);
             stage.focusHome(c);
           }}
-          onPick={pick}
-          onWorld={world}
+          onPick={openVoyage}
+          onWorld={() => openVoyage(null)}
           onAbout={() => setAbout(true)}
           onRetry={fetchIndex}
         />
@@ -332,8 +335,7 @@ export function App() {
 
       {playingView && (
         <>
-          {s?.kind === 'voyage' && <Journal entries={snap.journal} landho={snap.landho} open={journalOpen} onToggle={() => setJournalOpen(!journalOpen)} />}
-          {s?.kind === 'world' && <Journal entries={snap.journal} landho={null} open={journalOpen} onToggle={() => setJournalOpen(!journalOpen)} />}
+          <Journal entries={snap.journal} landho={snap.landho} open={journalOpen} onToggle={() => setJournalOpen(!journalOpen)} />
           <div className="bottom fades">
             {!snap.follow && snap.screen !== 'ending' && (
               <button className="btn back" onClick={() => stage.backToVoyage()}>
@@ -358,9 +360,10 @@ export function App() {
         </>
       )}
 
-      {snap.screen === 'ending' && snap.endingCard && <Ending onHome={home} onWorld={world} />}
+      {snap.screen === 'ending' && snap.endingCard && <Ending onHome={home} onWorld={() => openVoyage(null)} />}
 
-      <About open={about} onClose={() => setAbout(false)} />
+      <About open={about} onClose={() => setAbout(false)} voyage={snap.voyageId}
+        momentURL={about && playingView && snap.voyageId ? voyageURL(location.href, snap.voyageId, { day: Math.floor(snap.day), paused: true }).href : null} />
     </div>
   );
 }

@@ -3,6 +3,7 @@
 **Pick a famous expedition and ride along on a 3D globe that starts covered in fog. The fog lifts only where the expedition could actually see, so the map you end with is the map they earned.**
 
 - Live: https://terra-incognita-map.vercel.app
+- [Read the expedition journals](https://terra-incognita-map.vercel.app/journals.html) without JavaScript or WebGL. This print-friendly edition includes every dated entry, citation and disputed landfall, with a link back to that day on the globe.
 - Built from the "Uncharted" PRD (9 November 2026).
 
 Five voyages ship, each chosen for a different kind of reveal:
@@ -60,13 +61,15 @@ The globe's fragment shader reveals a pixel once `firstSeenDay <= currentDay`, s
 
 **Camera.** The camera follows with a gentle lag and comes in closer where land is appearing, pulling back across open ocean. Drag to leave; "Back to the voyage" returns.
 
+**Returning to a moment.** Open **About this map** during any voyage or world playback. Time stands still while the panel is open. Copy or bookmark **Bookmark or share this day** to reopen that day paused. Choosing another voyage always starts it at departure; Replay starts the clock again. No account or stored travel history is needed.
+
 **Sound** (`app/audio/sound.ts`) is synthesised with Web Audio, so there are no recordings to license:
 - ambient beds per terrain;
 - a sparse theme per voyage that swells at landfalls;
 - a pen scratch as coastlines are inked;
 - wind and waves only during a land ho.
 
-It's silent until the first click, and mute is remembered per browser.
+It's silent until the first interaction. The only preference stored is the existing `terra-incognita:muted` key (`1` or `0`); About can clear that key without touching any other browser data. There is no analytics SDK, and the fonts, map data and poster generation do not call a third-party service at runtime.
 
 **Poster** (`app/poster/poster.ts`). This renders the live scene offscreen, framed on the route, and lays it out on parchment with the title, dates, days and distance. It comes in two sizes: 1170 × 2532 for a phone, 3600 × 4800 (12 × 16 in at 300 dpi) for print.
 
@@ -76,12 +79,16 @@ It's silent until the first click, and mute is remembered per browser.
 app/              React app and globe
 app/shaders/      globe and line GLSL
 app/engine/       clock, camera, route lookup, the stage that ties them together
+app/components/   shadcn/Base UI controls themed to the map (no Tailwind preflight)
+build/journals.ts static HTML edition generated from the same published voyage data
 data/voyages/     voyage JSON (the PRD's format, plus a few marked additions)
 scripts/bake/     the bake pipeline
 public/baked/     generated textures and route JSON (committed, so deploys don't need the bake)
 ```
 
 ## Develop
+
+Use Node 22.12 or newer and pnpm 9. The baked assets are committed: a normal checkout can run `pnpm install --frozen-lockfile` and `pnpm dev` without downloading or rebuilding terrain.
 
 ```sh
 pnpm install
@@ -92,6 +99,8 @@ pnpm dev
 pnpm test              # unit tests: dates, geometry, clock, routes, raster, data validation, 16-bit round trips
 pnpm e2e http://localhost:5173   # headless Chrome with software WebGL: the real flows, phone layout included
 ```
+
+`pnpm typecheck` checks both app and bake scripts. `pnpm build` creates the deployable globe and `/journals.html`. Use `TERRA_SHOTS=/path/to/output pnpm e2e <url>` to capture the browser tour. The existing GitHub integration deploys pushes to `main`.
 
 The bake validates every voyage first and refuses to run on bad data:
 - dates out of order;
