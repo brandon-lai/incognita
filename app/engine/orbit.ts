@@ -27,6 +27,7 @@ export class Orbit {
   userZoom = 1;
   /** Spin around the polar axis, radians per second (landing globe, wide endings). */
   spin = 0;
+  private zoomResponse = 0;
 
   constructor(readonly fovDeg = 40) {}
 
@@ -41,26 +42,31 @@ export class Orbit {
     return { up, right };
   }
 
-  update(dt: number) {
+  update(dt: number, reducedMotion = false) {
     if (this.spin) {
       const a = this.spin * dt;
       const [x, y, z] = this.target;
       this.target = [x * Math.cos(a) + z * Math.sin(a), y, -x * Math.sin(a) + z * Math.cos(a)];
     }
-    const k = 1 - Math.exp(-dt / Math.max(0.01, this.lag));
+    const k = reducedMotion ? 1 : -Math.expm1(-dt / Math.max(0.01, this.lag));
     const c = this.center;
     const t = this.target;
     const d = Math.max(-1, Math.min(1, dot(c, t)));
-    if (d < 0.999999) {
+    if (d < 1 - 1e-12 && !reducedMotion) {
       const w = Math.acos(d) * k;
       // Rotate c toward t by w.
-      const axis = norm(cross(c, t));
+      let axis = cross(c, t);
+      if (Math.hypot(...axis) < 1e-9) axis = cross(c, Math.abs(c[1]) < 0.9 ? [0, 1, 0] : [1, 0, 0]);
+      axis = norm(axis);
       const ortho = cross(axis, c);
       this.center = norm([c[0] * Math.cos(w) + ortho[0] * Math.sin(w), c[1] * Math.cos(w) + ortho[1] * Math.sin(w), c[2] * Math.cos(w) + ortho[2] * Math.sin(w)]);
     } else {
       this.center = t;
     }
-    this.distance += (this.targetDistance - this.distance) * k;
+    const inputTime = Math.min(this.zoomResponse, dt);
+    const zoomStep = reducedMotion ? 1 : -Math.expm1(-inputTime / 0.085 - (dt - inputTime) / Math.max(0.01, this.lag));
+    this.distance += (this.targetDistance - this.distance) * zoomStep;
+    this.zoomResponse = Math.max(0, this.zoomResponse - dt);
   }
 
   /** Radians of globe per screen pixel at the centre. */
@@ -86,7 +92,7 @@ export class Orbit {
     this.userZoom = Math.max(0.12, Math.min(5, this.userZoom * factor));
     const alt = Math.max(MIN_DISTANCE - 1, Math.min(MAX_DISTANCE - 1, (this.targetDistance - 1) * factor));
     this.targetDistance = 1 + alt;
-    this.distance = 1 + Math.max(MIN_DISTANCE - 1, Math.min(MAX_DISTANCE - 1, (this.distance - 1) * factor));
+    this.zoomResponse = 0.5;
   }
 
   /** Altitude scaled by the person's zoom, clamped to the allowed range. */

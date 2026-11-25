@@ -58,11 +58,13 @@ export function Journal({ entries, landho, open, onToggle }: { entries: JournalE
         <span className="journal-handle-bar" aria-hidden="true" />
         <span>{latest ? latest.moment.title : 'Journal'}</span>
       </button>
-      <div className="journal-list" id="journal-list" ref={list}>
-        {entries.length === 0 && <p className="entry-empty">Notes from the voyage appear here as it unfolds.</p>}
-        {[...entries].reverse().map((e) => (
-          <Entry key={e.key} e={e} current={e.key === landho?.key || e === latest} />
-        ))}
+      <div className="journal-drawer">
+        <div className="journal-list" id="journal-list" ref={list}>
+          {entries.length === 0 && <p className="entry-empty">Notes from the voyage appear here as it unfolds.</p>}
+          {[...entries].reverse().map((e) => (
+            <Entry key={e.key} e={e} current={e.key === landho?.key || e === latest} />
+          ))}
+        </div>
       </div>
     </aside>
   );

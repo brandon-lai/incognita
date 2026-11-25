@@ -1,18 +1,21 @@
 @import "@fontsource/im-fell-english/latin-400.css";
 @import "@fontsource/im-fell-english/latin-400-italic.css";
 @import "@fontsource/im-fell-english-sc/latin-400.css";
+@import "@fontsource/pixelify-sans/latin-500.css";
 
 :root {
-  --night: #120d09;
-  --parchment: #e6d6b0;
-  --parchment-light: #f3e8cd;
-  --parchment-dark: #c4ad80;
-  --ink: #2a1c11;
-  --ink-soft: #5a4630;
-  --char: #5a3519;
-  --route: #8f2a17;
-  --sea: #3b5a66;
-  --focus: #d9a441;
+  --night: #29273f;
+  --parchment: #f4ddb0;
+  --parchment-light: #fff4d6;
+  --parchment-dark: #cfaa96;
+  --ink: #382e44;
+  --ink-soft: #5b4d59;
+  --char: #654658;
+  --route: #933f4e;
+  --sea: #386779;
+  --focus: #ffbb80;
+  --mint: #abe0c5;
+  --pixel: 'Pixelify Sans', ui-monospace, monospace;
   --serif: 'IM Fell English', 'Iowan Old Style', Georgia, serif;
   --serif-sc: 'IM Fell English SC', 'IM Fell English', Georgia, serif;
   --sans: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;

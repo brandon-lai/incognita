@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Postcard } from './Postcard';
 import { formatDate } from '../data/dates';
 import { stage } from '../engine/stage';
 import { savePoster, type PosterSize } from '../poster/poster';
@@ -31,6 +32,7 @@ export function Ending({ onHome, onWorld }: { onHome: () => void; onWorld: () =>
     return (
       <div className="ending" role="dialog" aria-label="The world uncovered">
         <div className="cartouche">
+          <Postcard id="world" />
           <p className="cartouche-kicker">1000 – 1912</p>
           <h2 className="cartouche-title">The world uncovering</h2>
           <p className="cartouche-text">
@@ -52,6 +54,7 @@ export function Ending({ onHome, onWorld }: { onHome: () => void; onWorld: () =>
   return (
     <div className="ending" role="dialog" aria-label={`${v?.title ?? ''} complete`}>
       <div className="cartouche">
+        <Postcard id={s.id} />
         <p className="cartouche-kicker">{v?.explorer}</p>
         <h2 className="cartouche-title">{v?.title}</h2>
         <p className="cartouche-dates">

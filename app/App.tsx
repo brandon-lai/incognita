@@ -85,8 +85,13 @@ function MapApp() {
   }, []);
 
   useEffect(() => {
+    const preference = matchMedia('(prefers-reduced-motion: reduce)');
+    const syncMotion = () => stage.setReducedMotion(preference.matches);
+    syncMotion();
+    preference.addEventListener('change', syncMotion);
     stage.showLanding(null);
     fetchIndex();
+    return () => preference.removeEventListener('change', syncMotion);
   }, [fetchIndex]);
 
   const openVoyage = useCallback((card: VoyageCard | null, at?: StartingPoint) => {
@@ -242,6 +247,7 @@ function MapApp() {
           error={indexError}
           focused={focused}
           onFocus={(c) => {
+            if (focused === c.id) return;
             setFocused(c.id);
             stage.focusHome(c);
           }}

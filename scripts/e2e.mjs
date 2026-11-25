@@ -159,8 +159,8 @@ async function browser() {
       await send('Network.setCacheDisabled', { cacheDisabled: true });
       await send('Network.setBlockedURLs', { urls });
     },
-    async reduced() {
-      await send('Emulation.setEmulatedMedia', { features: [{ name: 'prefers-reduced-motion', value: 'reduce' }] });
+    async reduced(enabled = true) {
+      await send('Emulation.setEmulatedMedia', { features: [{ name: 'prefers-reduced-motion', value: enabled ? 'reduce' : 'no-preference' }] });
     },
     async savedPoster(filename) {
       for (let n = 0; n < 100; n++) {
@@ -226,6 +226,14 @@ async function main() {
     check('landing globe shows only the home patch', await p.eval(stage(`s.homeAmount === 1 && s.scene === null`)));
     const px = await p.pixels();
     await p.shot('desktop-landing');
+    check('postcard artwork resolves on every expedition', await p.eval(`[...document.querySelectorAll('.cards .postcard')].length === 6 && [...document.querySelectorAll('.cards .postcard use')].every(el => el.getBBox().width > 0)`));
+    await p.reduced();
+    await p.until(stage('s.reducedMotion && s.orbit.spin === 0'));
+    const still = await p.eval(stage('s.time'));
+    await sleep(350);
+    check('changing the motion setting without reloading stops decorative drift and spin', await p.eval(stage(`s.reducedMotion && s.time === ${still} && s.orbit.spin === 0`)));
+    await p.reduced(false);
+    check('restoring motion resumes the landing globe', await p.until(stage(`!s.reducedMotion && s.time > ${still} && s.orbit.spin > 0`)));
     check('the globe actually renders', px.sd > 20, `luminance sd ${px.sd.toFixed(1)}`);
     check('no horizontal page scroll', await p.eval(`document.documentElement.scrollWidth <= innerWidth`));
     await p.click('.about-link');
@@ -358,6 +366,8 @@ async function main() {
     await p.go('/?voyage=world&day=180000&paused', 3500);
     check('a world bookmark opens paused on its day', await p.until(stage(`s.screen === 'world' && s.clock.day === 180000 && !s.clock.playing`)));
     await p.shot('phone-world');
+    await p.click('.play');
+    check('reduced motion still lets the reader play the voyage', await p.until(stage('s.reducedMotion && s.clock.day > 180000')));
     await p.eval(stage(`(s.seek(s.clock.days - 1), s.play(), 1)`));
     check('world ending is reachable', await p.until(`!!document.querySelector('.cartouche')`, 20000));
     await p.shot('phone-world-ending', [1440, 900]);

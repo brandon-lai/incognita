@@ -75,7 +75,7 @@ export function About({ open, onClose, voyage, momentURL }: {
             </a>
             .
           </li>
-          <li>Fonts: IM Fell English by Igino Marini, <a href="/font-license.txt">SIL Open Font License</a>.</li>
+          <li>Fonts: IM Fell English by Igino Marini and Pixelify Sans by the Pixelify Sans Project Authors. Both use the <a href="/font-license.txt">SIL Open Font License</a>.</li>
           <li>Sound and music are synthesised in your browser. Nothing is recorded or sent anywhere.</li>
         </ul>
         <h3>Privacy and settings</h3>

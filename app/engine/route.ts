@@ -35,6 +35,8 @@ export interface Vessel {
 
 export class RouteIndex {
   readonly legs: PathPoint[][];
+  private cachedDay = NaN;
+  private cachedVessels: Vessel[] = [];
 
   constructor(
     readonly route: Pick<BakedRoute, 'legs'>,
@@ -63,6 +65,7 @@ export class RouteIndex {
 
   /** Every party under way (or waiting) on this day. Legs that have ended show nothing, except the last. */
   vessels(day: number): Vessel[] {
+    if (day === this.cachedDay) return this.cachedVessels;
     const out: Vessel[] = [];
     let lastEnded = -1;
     this.route.legs.forEach((info, i) => {
@@ -76,6 +79,8 @@ export class RouteIndex {
       out.push(this.vesselOn(i, day));
     });
     if (!out.length && lastEnded >= 0) out.push(this.vesselOn(lastEnded, day));
+    this.cachedDay = day;
+    this.cachedVessels = out;
     return out;
   }
 

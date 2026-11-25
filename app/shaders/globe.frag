@@ -46,9 +46,6 @@ varying vec3 vViewW;
 const float PI = 3.14159265359;
 const float NEVER = 1.0e9;
 
-float fbm2(vec3 p) { return snoise(p) * 0.65 + snoise(p * 2.03 + 3.1) * 0.35; }
-float fbm3(vec3 p) { return snoise(p) * 0.55 + snoise(p * 2.03 + 3.1) * 0.3 + snoise(p * 4.1 + 7.7) * 0.15; }
-
 float lum(vec3 c) { return dot(c, vec3(0.2126, 0.7152, 0.0722)); }
 
 // Seconds since the voyage reached day s, from the recent history of uDay.
@@ -136,22 +133,23 @@ void main() {
   float reveal = smoothstep(0.38, 0.62, mask + edgeNoise * 0.2);
   float rim = smoothstep(0.02, 0.4, mask + edgeNoise * 0.2) * (1.0 - reveal);
 
-  // Fog: aged parchment with mist drifting over it, and a faint inked graticule so it still reads as a globe.
-  vec3 drift = vec3(uTime * 0.010, uTime * -0.003, uTime * 0.007);
-  float stain = fbm2(dir * 1.7 + 11.0);
-  vec3 fog = mix(uParchment, uParchmentDark, clamp(0.32 + stain * 0.32, 0.0, 1.0));
-  vec3 mp = dir * 2.3 + drift;
-  vec3 mw = mp + 0.5 * vec3(fbm2(mp + 1.7), fbm2(mp + 9.2), fbm2(mp + 4.4)) + drift * 2.0;
-  float mist = fbm3(mw * 1.3);
-  fog = mix(fog, uParchmentLight, smoothstep(-0.3, 0.8, mist) * 0.38);
-  fog = mix(fog, uParchmentDark, smoothstep(0.0, -0.7, mist) * 0.12);
-  float fiber = (snoise(dir * 700.0) * 0.6 + snoise(dir * 1900.0) * 0.4) * fine;
-  fog *= 1.0 + fiber * 0.012;
-  // Polar fog thins to white towards the pole on ice voyages.
-  fog = mix(fog, vec3(0.86, 0.88, 0.9) * (0.95 + 0.05 * mist), uFogWhite * smoothstep(-0.55, -0.85, dir.y));
-
+  // Broad blocks of cloud ink. Anchor the little squares to the globe, not the
+  // screen, and soften them below pixel size so they don't glitter in motion.
   float lat = asin(clamp(dir.y, -1.0, 1.0));
   float lon = atan(-dir.z, dir.x);
+  vec2 tiles = vec2(lon, lat) * (80.0 / PI);
+  vec2 gridWidth = vec2(foot * 80.0 / PI) / vec2(max(cos(lat), 0.05), 1.0);
+  vec2 cell = (floor(tiles) + 0.5) * (PI / 80.0);
+  vec3 cellDir = vec3(cos(cell.y) * cos(cell.x), sin(cell.y), -cos(cell.y) * sin(cell.x));
+  float tileInk = 1.0 - smoothstep(0.12, 0.65, max(gridWidth.x, gridWidth.y));
+  vec3 drift = vec3(uTime * 0.010, uTime * -0.003, uTime * 0.007);
+  vec3 inkDir = mix(dir, cellDir, tileInk);
+  float mist = snoise(inkDir * 3.1 + drift) * 0.72 + snoise(inkDir * 7.0 + 11.0) * 0.28;
+  vec3 fog = mix(uParchment, uParchmentDark, 0.48 * smoothstep(0.05, 0.42, -mist));
+  fog = mix(fog, uParchmentLight, 0.64 * smoothstep(-0.02, 0.32, mist));
+  // Polar fog thins to white towards the pole on ice voyages.
+  fog = mix(fog, vec3(0.86, 0.88, 0.9) * (0.95 + 0.05 * mist), uFogWhite * (1.0 - smoothstep(-0.85, -0.55, dir.y)));
+
   vec2 g = vec2(lon, lat) / (PI / 12.0);
   vec2 gw = max(fwidth(g), vec2(1e-4));
   vec2 gd = abs(fract(g - 0.5) - 0.5) / gw;
@@ -186,7 +184,8 @@ void main() {
   lines *= (1.0 - smoothstep(1.2, 3.0, kmPx)) * (1.0 - land);
   float depth = smoothstep(0.004, 0.06, lum(img));
   vec3 sea = mix(uSeaDeep, uSea, depth);
-  vec3 charted = mix(sea, img * vec3(1.04, 1.0, 0.95), land);
+  vec3 meadow = mix(vec3(0.10, 0.28, 0.22), vec3(0.64, 0.78, 0.42), smoothstep(0.015, 0.29, lum(img)));
+  vec3 charted = mix(sea, mix(img, meadow, 0.30 * (1.0 - smoothstep(0.28, 0.65, lum(img)))), land);
   charted = mix(charted, uSeaDeep * 0.55, lines * 0.55);
 
   // Ink, then colour: newly seen land is a pale parchment drawing for about three seconds.

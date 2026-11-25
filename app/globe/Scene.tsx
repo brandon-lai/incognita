@@ -6,6 +6,7 @@ import { loadCoastTexture, textureSize } from '../data/loader';
 import { RibbonBuilder, type Ribbon } from '../data/ribbon';
 import { NEVER_SEEN } from '../data/types';
 import { stage } from '../engine/stage';
+import { PixelBudget } from '../engine/pixel-budget';
 import globeFrag from '../shaders/globe.frag?raw';
 import globeVert from '../shaders/globe.vert?raw';
 import lineFrag from '../shaders/line.frag?raw';
@@ -77,7 +78,7 @@ function Globe({ onError }: GlobeProps) {
     [],
   );
   gl3.globe = material;
-  const geometry = useMemo(() => new THREE.SphereGeometry(1, 384, 192), []);
+  const geometry = useMemo(() => new THREE.SphereGeometry(1, 192, 128), []);
   const [, setReady] = useState(0);
 
   // Imagery: a small image first so the globe is never blank, then the full size.
@@ -187,7 +188,7 @@ function Globe({ onError }: GlobeProps) {
       old.dispose();
     }
     u.uDay.value = stage.clock?.day ?? 0;
-    (u.uHist.value as number[]).splice(0, 9, ...stage.hist);
+    u.uHist.value = stage.hist;
     u.uTime.value = stage.time;
     u.uSunDir.value.set(...stage.sunDir).normalize();
     u.uHome.value.set(...stage.homeDir);
@@ -345,7 +346,7 @@ function Stars() {
       const a = rnd() * Math.PI * 2;
       const r = Math.sqrt(1 - z * z);
       pos.set([Math.cos(a) * r * 60, z * 60, Math.sin(a) * r * 60], i * 3);
-      const b = 0.15 + rnd() ** 3 * 0.6;
+      const b = 0.24 + rnd() ** 3 * 0.72;
       col.set([base.r * b, base.g * b, base.b * b], i * 3);
     }
     const g = new THREE.BufferGeometry();
@@ -361,12 +362,16 @@ function Stars() {
 }
 
 function Driver() {
-  const { camera, size, gl, scene } = useThree();
+  const { camera, size, gl, scene, setDpr } = useThree();
   gl3.renderer = gl;
   gl3.scene = scene;
   const shift = useRef(0);
   const lift = useRef(0);
-  useFrame((_, dt) => {
+  const budget = useMemo(() => new PixelBudget(), []);
+  useFrame(({ viewport }, elapsed) => {
+    const ratio = budget.sample(elapsed, viewport.dpr, viewport.initialDpr);
+    if (ratio !== viewport.dpr) setDpr(ratio);
+    const dt = Math.min(elapsed, 0.1);
     stage.aspect = size.width / Math.max(1, size.height);
     stage.frame(dt);
     const o = stage.orbit;
@@ -381,15 +386,16 @@ function Driver() {
     // On wide screens the globe sits to the right of the landing title and the ending cartouche.
     const wide = size.width > 900;
     const wantShift = wide && stage.screen === 'landing' ? -0.2 * size.width : wide && stage.screen === 'ending' ? -0.16 * size.width : 0;
-    shift.current += (wantShift - shift.current) * (1 - Math.exp(-dt / 0.6));
+    const panStep = stage.reducedMotion ? 1 : -Math.expm1(-dt / 0.6);
+    shift.current += (wantShift - shift.current) * panStep;
     // On phones the ending globe rides above the cartouche.
     const portrait = size.width < size.height;
     const wantLift = !wide && portrait ? (stage.screen === 'ending' ? 0.22 : stage.screen === 'landing' ? -0.06 : 0) * size.height : 0;
-    lift.current += (wantLift - lift.current) * (1 - Math.exp(-dt / 0.6));
+    lift.current += (wantLift - lift.current) * panStep;
     if (Math.abs(shift.current) > 0.5 || Math.abs(lift.current) > 0.5) cam.setViewOffset(size.width, size.height, shift.current, lift.current, size.width, size.height);
     else cam.clearViewOffset();
-    cam.updateProjectionMatrix();
-    overlay.update(camera, size.width, size.height);
+    camera.updateMatrixWorld();
+    overlay.update(camera, size.width, size.height, dt);
   }, -1);
   return null;
 }
@@ -402,7 +408,7 @@ export function GlobeCanvas({ onError }: GlobeProps) {
       gl={{ antialias: true, alpha: false, powerPreference: 'high-performance' }}
       camera={{ fov: 40, position: [0, 0, 3], near: 0.01, far: 200 }}
       onCreated={({ gl }) => {
-        gl.setClearColor(new THREE.Color('#120d09'));
+        gl.setClearColor(new THREE.Color(PALETTE.sky));
       }}
     >
       <Driver />

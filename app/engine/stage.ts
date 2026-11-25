@@ -73,6 +73,7 @@ export class Stage {
   time = 0;
   aspect = 1;
   suspended = false;
+  reducedMotion = false;
 
   // Globe uniforms.
   hist: number[] = new Array(9).fill(0);
@@ -165,7 +166,7 @@ export class Stage {
     this.orbit.follow = false;
     this.orbit.lag = 1.6;
     this.orbit.userZoom = 1;
-    this.orbit.spin = matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 0.035;
+    this.orbit.spin = this.reducedMotion ? 0 : 0.035;
     if (card) this.focusHome(card);
     this.emit({ endingCard: false, introNote: null, title: '', voyageId: null, error: null });
   }
@@ -178,6 +179,12 @@ export class Stage {
     // Sit the home a little off-centre, with the sun behind the viewer's left shoulder.
     this.orbit.target = toVec(lon - 18, Math.max(-60, Math.min(60, lat - 8)));
     this.emit({ year: card.years[0] });
+  }
+
+  setReducedMotion(reduce: boolean) {
+    this.reducedMotion = reduce;
+    if (reduce) this.orbit.spin = 0;
+    else if (this.screen === 'landing') this.orbit.spin = 0.035;
   }
 
   // --- Voyages ---------------------------------------------------------------
@@ -357,7 +364,7 @@ export class Stage {
 
   frame(dt: number) {
     if (this.suspended) return;
-    this.time += dt;
+    if (!this.reducedMotion) this.time += dt;
     const c = this.clock;
     const s = this.scene;
 
@@ -385,10 +392,10 @@ export class Stage {
 
     if (this.screen === 'ending') this.ending(dt);
 
-    this.orbit.update(dt);
+    this.orbit.update(dt, this.reducedMotion);
 
     this.sinceEmit += dt;
-    if (this.sinceEmit > 0.1) {
+    if (this.sinceEmit > 0.1 && ((c && this.snap.day !== c.day) || this.snap.follow !== this.orbit.follow)) {
       this.sinceEmit = 0;
       this.emit();
     }
@@ -494,7 +501,7 @@ export class Stage {
       const half = Math.atan(Math.tan((this.orbit.fovDeg * Math.PI) / 360) * this.aspect);
       this.orbit.targetDistance = Math.max(this.orbit.targetDistance, 1 / Math.sin(half * 0.92));
     }
-    if (fit.radius > 1.25) this.orbit.spin = 0.12;
+    if (fit.radius > 1.25 && !this.reducedMotion) this.orbit.spin = 0.12;
     this.onEvent({ type: 'ending' }, this);
     this.emit();
   }

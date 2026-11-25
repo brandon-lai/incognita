@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges">
+  <defs>
+    <symbol id="sea" viewBox="0 0 32 24">
+      <path fill="#423449" d="M15 1h2v14h5V7h2v9h5v3h-2v2h-3v2H8v-2H5v-2H3v-4h12z"/>
+      <path fill="#f98e76" d="M17 1h6v2h-3v2h-3z"/>
+      <path fill="#624453" d="M7 5h8v8H5v-3h1V7h1zm10 1h3v2h2v6h-5zm7 3h2v3h2v3h-4z"/>
+      <path fill="#fff5cf" d="M8 6h6v6H6v-2h1V8h1zm9 1h2v2h2v4h-4zm7 3h1v3h2v1h-3z"/>
+      <path fill="#e9b888" d="M6 11h8v1H6zm11 1h4v1h-4z"/>
+      <path fill="#c78162" d="M5 16h8v1h12v-1h3v2h-3v2H8v-2H5z"/>
+      <path fill="#f5ba75" d="M9 17h3v1H9zm6 1h3v1h-3zm6 0h2v1h-2z"/>
+      <path fill="#805368" d="M9 20h15v1H9z"/>
+    </symbol>
+    <symbol id="river" viewBox="0 0 32 24">
+      <path fill="#423449" d="M2 15h2v2h5v-4h3v-3h10v2h2v4h5v-2h2v4h-2v2h-3v2H7v-2H4v-2H2z"/>
+      <path fill="#65ac99" d="M11 13h2v-2h8v2h2v3H11z"/>
+      <path fill="#ffe6aa" d="M13 12h7v2h-7z"/>
+      <path fill="#c78162" d="M5 17h23v2h-3v1H8v-1H5z"/>
+      <path fill="#423449" d="M6 11h4v4H6zm17 1h4v4h-4z"/>
+      <path fill="#ffc296" d="M7 12h2v2H7zm17 1h2v2h-2z"/>
+      <path fill="#935e4d" d="M9 15h2v2H9v2H7v2H5v-2h2v-2h2zm16 0h2v2h-2v2h-2v2h-2v-2h2v-2h2z"/>
+    </symbol>
+    <symbol id="land" viewBox="0 0 32 24">
+      <path fill="#423449" d="M23 3h2v3h2V5h2v4h2v4h-5v3h-2v6h-3v-5H11v3H9v3H6v-7H4v2H2v-5h2v-3h4V8h13V6h2z"/>
+      <path fill="#ba795e" d="M23 8h2V7h2v3h2v2h-5v3h-3v1H9v-2H6v-2h5V9h10v2h2z"/>
+      <path fill="#f4c594" d="M27 11h3v1h-3zM9 15h12v1H9z"/>
+      <path fill="#65ac99" d="M10 9h9v5h-9z"/><path fill="#fff0be" d="M13 7h4v5h-4z"/>
+      <path fill="#423449" d="M12 3h6v2h1v2h-8V5h1zm14 6h1v1h-1z"/>
+      <path fill="#ffc296" d="M13 5h3v2h-3z"/>
+    </symbol>
+    <symbol id="ice" viewBox="0 0 32 24">
+      <path fill="#423449" d="M2 13h12v3h3v2h-2v2h3v-2h2v3h-3v1H2v-2h2v-2H2zm18 1h5v-3h2v2h2v-1h2v5h-3v4h-2v-3h-4v3h-2v-4h-2v-3h-2v-2h2v2z"/>
+      <path fill="#d59270" d="M3 14h10v3H3zm1 6h10v1H4z"/><path fill="#ffe9ba" d="M5 14h2v3H5zm16 1h5v-1h2v3h-7z"/>
+      <path fill="#65ac99" d="M6 6h5v2h1v5H5V8h1z"/><path fill="#ffc296" d="M8 7h3v3H8z"/>
+      <path fill="#806072" d="M14 16h6v1h-6z"/>
+    </symbol>
+    <symbol id="world" viewBox="0 0 32 24">
+      <path fill="#423449" d="M12 1h8v2h4v2h2v3h2v8h-2v3h-3v2h-4v2h-8v-2H8v-2H6v-3H4V8h2V5h3V3h3z"/>
+      <path fill="#60a69e" d="M12 3h8v2h4v3h2v8h-2v2h-3v2h-9v-1H9v-3H6V8h2V6h4z"/>
+      <path fill="#a8d7a6" d="M12 3h8v2h-3v2h-4v2h-3v2H7V8h2V6h3zm7 8h4v2h2v3h-2v2h-3v-2h-2v-3h1z"/>
+      <path fill="#45384d" d="M10 12h2v2h-2zm7 0h2v2h-2zm-4 3h3v1h-3z"/>
+      <path fill="#f5ac9b" d="M8 14h3v1H8zm10 0h3v1h-3z"/><path fill="#ffdfa5" d="M27 1h1v2h2v1h-2v2h-1V4h-2V3h2z"/>
+    </symbol>
+    <symbol id="island" viewBox="0 0 32 24">
+      <path fill="#77afb1" d="M2 22h28v2H2z"/><path fill="#f9c98b" d="M6 18h17v1h4v2h3v1H3v-2h3z"/>
+      <path fill="#714e52" d="M17 7h3v6h-2v6h-4v-3h2v-5h1z"/>
+      <path fill="#3c7369" d="M16 5h3V3h3v1h3v2h3v3h-3V8h-5v2h2v3h-2v-2h-3V8h-4v2h-3v2H7V8h3V6h4V4h-4V2h5v1h2z"/>
+      <path fill="#84c79b" d="M8 8h3V7h5v1h-4v2H8zm12-3h4v1h3v1h-5V6h-2z"/>
+      <path fill="#fff1bf" d="M6 20h6v1H6zm15-1h3v1h-3z"/>
+    </symbol>
+    <symbol id="pine" viewBox="0 0 32 24">
+      <path fill="#417b72" d="M9 3h3v4h2v3h3v3h-2v1h3v3h2v2H2v-2h2v-3h3v-1H5v-3h2V7h2z"/>
+      <path fill="#9cd09d" d="M9 7h2v3H9v2H7v-2h2zm-3 8h5v1H6z"/>
+      <path fill="#705056" d="M9 19h4v4H9zm15 0h3v4h-3z"/>
+      <path fill="#68a88d" d="M24 6h2v3h2v3h2v3h-2v1h3v4H18v-3h2v-2h2v-1h-2v-2h2V9h2z"/>
+    </symbol>
+    <symbol id="peak" viewBox="0 0 32 24">
+      <path fill="#68869a" d="M1 19h2v-3h2v-3h2v-3h2V7h2v-3h2V1h2v3h2v3h2v3h2v3h2v-2h2v3h2v3h2v3h2v2H1z"/>
+      <path fill="#b0cdd2" d="M13 4h2v4h2v3h2v3h2v3h2v4H4v-3h3v-3h3v-4h2z"/>
+      <path fill="#fff4d8" d="M13 3h2v2h2v3h2v3h-3V9h-2v2h-2v2H8v-3h2V7h2V5h1z"/>
+    </symbol>
+    <symbol id="cloud" viewBox="0 0 32 12">
+      <path fill="#fff0cc" d="M1 8h4V5h4V3h4V1h7v2h3v3h4v2h4v3H1z"/>
+      <path fill="#eebfad" d="M1 10h30v1H1z"/>
+    </symbol>
+  </defs>
+</svg>

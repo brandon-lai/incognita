@@ -44,7 +44,7 @@ The globe's fragment shader reveals a pixel once `firstSeenDay <= currentDay`, s
 - **Ice:** the same viewshed with a 3 m eye, capped at 60 km, with a steady 8 km circle that's always seen.
 
 **Fog look** (`app/shaders/globe.frag`). The fog is drawn in the globe's fragment shader:
-- Aged parchment with mist drifting over it, and a faint inked graticule so the fogged globe still reads as a globe.
+- Warm square-cut cloud textures anchored to the globe, with a faint inked graticule. The expedition sprites and postcard art share a pixel grid, but move at the renderer's frame rate.
 - Edges are sampled through animated domain-warped noise, so they curl. Each newly seen spot burns in over 0.7 s of wall-clock time, with an ember rim, whatever the playback speed.
 - **Ink, then colour:** for about three seconds, new land is a pale parchment drawing and new coast is inked with water-lines. Then colour washes in. The shader works out "seconds since reveal" from a short history of the clock that the CPU passes in, so the effect holds at 8× speed and during slow motion.
 - The known world's hand-drawn polygons are sampled through a much larger warp, so their straight edges read as the ragged edge of charted land.
@@ -204,4 +204,4 @@ These are for Brandon, or whoever owns the content:
 - Coastlines, land, lakes, rivers and ice shelves: Natural Earth. Public domain.
 - Terrain: Terrarium tiles on AWS Open Data. See the [data sources and attributions](https://github.com/tilezen/joerd/blob/master/docs/attribution.md).
 - Simplex noise: Ashima Arts and Stefan Gustavson, MIT.
-- Fonts: IM Fell English by Igino Marini, SIL Open Font License.
+- Fonts: IM Fell English by Igino Marini and Pixelify Sans by the Pixelify Sans Project Authors, both under the SIL Open Font License.
